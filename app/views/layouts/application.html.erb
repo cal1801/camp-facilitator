@@ -6,7 +6,6 @@
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <%= stylesheet_link_tag    'application' %>
     <%= javascript_include_tag 'application' %>
     <!--Bootstrap Integration-->
@@ -14,6 +13,7 @@
   </head>
 
   <body>
+    <%=render "layouts/nav_bar"%>
     <%if notice%><div class="alert alert-info" id="info" role="alert"><%= notice %></div><%end%>
     <%if alert%><div class="alert alert-danger" id="alert" role="alert"><%= alert %></div><%end%>
     <%= yield %>
