@@ -1,5 +1,6 @@
 class CampsController < ApplicationController
   before_action :set_camp, only: [:show, :edit, :update, :destroy]
+  before_action :check_master_admin, only: [:create, :new, :destroy]
 
   # GET /camps
   # GET /camps.json
@@ -56,7 +57,7 @@ class CampsController < ApplicationController
   def destroy
     @camp.destroy
     respond_to do |format|
-      format.html { redirect_to camps_url, notice: 'Camp was successfully destroyed.' }
+      format.html { redirect_to camps_url, notice: 'Camp was successfully destroyed.'}
       format.json { head :no_content }
     end
   end
@@ -70,5 +71,11 @@ class CampsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def camp_params
       params.require(:camp).permit(:name, :website, :phone_number)
+    end
+
+    def check_master_admin
+      unless current_user.master_admin?
+        redirect_to root_path, alert: 'Not allowed to perform this function'
+      end
     end
 end
