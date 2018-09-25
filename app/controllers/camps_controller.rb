@@ -1,6 +1,7 @@
 class CampsController < ApplicationController
   before_action :set_camp, only: [:show, :edit, :update, :destroy]
   before_action :check_master_admin, only: [:create, :new, :destroy]
+  before_action :check_camp_admin, only: [:edit, :update]
 
   # GET /camps
   # GET /camps.json
@@ -75,6 +76,12 @@ class CampsController < ApplicationController
 
     def check_master_admin
       unless current_user.master_admin?
+        redirect_to root_path, alert: 'Not allowed to perform this function'
+      end
+    end
+
+    def check_camp_admin
+      unless (current_user.master_admin? || current_user.camp_admin?) && current_user.camp_id == @camp.id
         redirect_to root_path, alert: 'Not allowed to perform this function'
       end
     end
