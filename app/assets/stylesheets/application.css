@@ -24,6 +24,10 @@ body {
   background: linear-gradient(0.12turn, #3f87a6, #ebf8e1, #f69d3c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.container {
+  padding-top: 1em !important;
+}
+
 .navbar {
   padding: 1em !important;
 }

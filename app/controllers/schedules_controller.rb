@@ -1,5 +1,10 @@
-class WelcomeController < ActionController::Base
+class SchedulesController < ApplicationController
   before_action :authenticate_user!, :check_account
+
+  def index
+    @camp = current_user.camp
+    @camp_accounts = @camp.accounts
+  end
 
   private
   def check_account

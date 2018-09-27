@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><%=@camp.name%></h5>
+        <p class="card-text">
+          <span class="oi oi-phone"></span> <%=@camp.phone_number%><br />
+          <%=link_to @camp.website, @camp.website%>
+        </p>
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          Staff
+        </h5>
+        <p class="card-text">
+          <%@camp_accounts.each do |camp_acc|%>
+            <%=camp_acc.full_name%>
+            <%="(You)" if camp_acc.id = current_user.id%>
+            <%= link_to 'Edit', edit_account_path(camp_acc) if current_user.camp_admin? || camp_acc.id = current_user.id %>
+          <%end%>
+        </p>
+        <div class="btn btn-primary btn-sm btn-block">
+          Add Staff Member
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-9">
+    size = 2
+  </div>
+</div>

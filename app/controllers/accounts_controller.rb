@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :set_account, :check_permissions, only: [:show, :edit, :update, :destroy]
+  before_action :check_admin, only: [:index]
 
   # GET /accounts
   # GET /accounts.json
@@ -28,6 +29,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
+        current_user.update_attributes(account_id: @account.id)
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
         format.json { render :show, status: :created, location: @account }
       else
@@ -64,11 +66,27 @@ class AccountsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
-      @account = Account.find(params[:id])
+      begin
+        @account = Account.find(params[:id])
+      rescue
+        redirect_to root_path, alert: "Couldn't find that account. Sorry."
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:first_name, :last_name, :phone_number)
+      params.require(:account).permit(:first_name, :last_name, :phone_number, :carrier)
+    end
+
+    def check_permissions
+      unless current_user.account_id == @account.id || (current_user.camp_admin? && current_user.camp_id == @account.user.camp_id) || current_user.master_admin?
+        redirect_to root_path, alert: "You don't have permission to access that page. Sorry."
+      end
+    end
+
+    def check_admin
+      unless current_user.master_admin?
+        redirect_to root_path, alert: "You don't have permission to access that page. Sorry."
+      end
     end
 end

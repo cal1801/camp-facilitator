@@ -2,5 +2,6 @@ Rails.application.routes.draw do
   resources :camps
   resources :accounts
   devise_for :users
-  root 'welcome#index'
+  get "schedules/index"
+  root "schedules#index"
 end
