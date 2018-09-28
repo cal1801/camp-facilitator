@@ -10,36 +10,46 @@
       </ul>
     </div>
   <% end %>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col">
+          <%= form.label :first_name %>
+          <%= form.text_field :first_name, class: "form-control" %>
+        </div>
 
-  <div class="row">
-    <div class="form-group col">
-      <%= form.label :first_name %>
-      <%= form.text_field :first_name, class: "form-control" %>
-    </div>
+        <div class="form-group col">
+          <%= form.label :last_name %>
+          <%= form.text_field :last_name, class: "form-control" %>
+        </div>
+      </div>
 
-    <div class="form-group col">
-      <%= form.label :last_name %>
-      <%= form.text_field :last_name, class: "form-control" %>
+      <div class="row">
+        <div class="col-12">
+          <p>
+            You will be sent work notifications through the email you used to log into your account. If you would like to also recieve notifications through text messages fill in both your phone number and your cell phone carrier below.
+          </p>
+        </div>
+        <div class="form-group col">
+          <%= form.label :phone_number %>
+          <%= form.text_field :phone_number, class: "form-control" %>
+        </div>
+        <div class="form-group col">
+          <%= form.label :carrier %>
+          <%= form.select :carrier, options_from_collection_for_select(Account.carriers, :last, :first), {prompt: "Please select your cell phone carrier"}, class: "form-control" %>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <p>
-        You will be sent work notifications through the email you used to log into your account. If you would like to also recieve notifications through text messages fill in both your phone number and your cell phone carrier below.
-      </p>
+    <div class="card-footer text-right">
+      <%= form.submit "Save Account", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', root_path, class: "btn btn-danger text-white" %>
     </div>
-    <div class="form-group col">
-      <%= form.label :phone_number %>
-      <%= form.text_field :phone_number, class: "form-control" %>
-    </div>
-    <div class="form-group col">
-      <%= form.label :carrier %>
-      <%= form.select :carrier, options_from_collection_for_select(Account.carriers, :last, :first), {prompt: "Please select your cell phone carrier"}, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Create Account", class: "btn btn-primary" %>
   </div>
 <% end %>
+<%content_for :bottom_script do%>
+  <script>
+    $(document).ready(function(){
+      $("#account_phone_number").mask('(000) 000-0000');
+    });
+  </script>
+<%end%>
