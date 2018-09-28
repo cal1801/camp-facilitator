@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Guest Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Arrives</th>
+      <th>Leaves</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guest_groups.each do |guest_group| %>
+      <tr>
+        <td><%= guest_group.name %></td>
+        <td><%= guest_group.description %></td>
+        <td><%= guest_group.arrives %></td>
+        <td><%= guest_group.leaves %></td>
+        <td><%= link_to 'Show', guest_group %></td>
+        <td><%= link_to 'Edit', edit_guest_group_path(guest_group) %></td>
+        <td><%= link_to 'Destroy', guest_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Guest Group', new_guest_group_path %>

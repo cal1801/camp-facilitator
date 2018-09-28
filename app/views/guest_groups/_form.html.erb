@@ -1,0 +1,104 @@
+<%= form_with(model: guest_group, local: true) do |form| %>
+  <% if guest_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(guest_group.errors.count, "error") %> prohibited this guest_group from being saved:</h2>
+
+      <ul>
+      <% guest_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-3">
+      <div class="row">
+        <div class="col-12">
+          <h5>Group Info</h5>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: "form-control" %>
+          </div>
+          <div class="field">
+            <%= form.label :arrives %>
+            <%= form.text_field :arrives, class: "form-control" %>
+          </div>
+          <div class="field">
+            <%= form.label :leaves %>
+            <%= form.text_field :leaves, class: "form-control" %>
+          </div>
+          <%=form.hidden_field :camp_id, value: current_user.camp_id%>
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-12">
+          <h5>Programs</h5>
+        </div>
+      </div>
+      <%=form.fields_for :activities, @activity do |a_form|%>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8 form-group">
+                <%= a_form.label :name %>
+                <%= a_form.text_field :name, class: "form-control" %>
+              </div>
+              <div class="col-4 form-group">
+                <%= a_form.label :staff_needed, "Number Staff Needed" %>
+                <%= a_form.number_field :staff_needed, class: "form-control" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col form-group">
+                <%= a_form.label :day %>
+                <%= a_form.text_field :day, class: "form-control" %>
+              </div>
+              <div class="col">
+                <%= a_form.label :start %><br />
+                <div class="d-flex form-group">
+                  <%= a_form.time_select :start, {minute_step: 15, ampm: true}, {class: "form-control"} %>
+                </div>
+              </div>
+              <div class="col">
+                <%= a_form.label :end %>
+                <div class="d-flex form-group">
+                  <%= a_form.time_select :end, {minute_step: 15, ampm: true}, {class: "form-control"} %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%end%>
+      <div class="row mt-3">
+        <div class="col-12">
+          <button class="btn btn-primary">Add Activity</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end">
+      <%= form.submit "Create Group and Activities", class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>
+<%content_for :bottom_script do%>
+  <script>
+    $(document).ready(function(){
+      $( "#guest_group_leaves, #guest_group_arrives, #activity_day" ).datepicker({dateFormat: "yyyy-mm-dd"});
+      $('#guest_group_leaves, #guest_group_arrives, #activity_day').mask('0000-00-00');
+    });
+  </script>
+<%end%>

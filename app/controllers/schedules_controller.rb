@@ -4,6 +4,7 @@ class SchedulesController < ApplicationController
   def index
     @camp = current_user.camp
     @camp_accounts = @camp.accounts
+    @guest_groups = @camp.guest_groups
   end
 
   private
