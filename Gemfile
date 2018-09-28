@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+gem 'devise_invitable'
 gem 'pry'
 
 # Reduces boot times through caching; required in config/boot.rb

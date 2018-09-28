@@ -8,8 +8,15 @@
           <%=link_to @camp.website, @camp.website, class: "btn btn-link btn-sm pl-0"%>
         </p>
         <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success btn-sm btn-block text-white" %>
-        <%= link_to "Add Staff Member", new_registration_path(resource_name), class: "btn btn-primary btn-sm btn-block" %><br />
-        <button class="btn btn-secondary btn-sm btn-block">See Past Groups</button>
+        <button class="btn btn-primary btn-sm btn-block" onclick="$('#invite-field').show()">Invite Staff Member</button>
+        <div class="form-group mt-3" id="invite-field" style="display: none;">
+          <%=form_tag send_invite_camps_path, remote: true do%>
+            <%=text_field_tag "invite_email", nil, placeholder: "Enter email", class: "form-control"%>
+            <%=submit_tag "Send Invite", class: "btn btn-primary btn-sm btn-block mt-1"%>
+          <%end%>
+        </div>
+
+        <button class="btn btn-secondary btn-sm btn-block mt-2">See Past Groups</button>
       </div>
     </div>
 

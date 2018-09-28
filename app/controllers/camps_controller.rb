@@ -63,6 +63,16 @@ class CampsController < ApplicationController
     end
   end
 
+  def send_invite
+    respond_to do |format|
+      if User.invite!(:email => params[:invite_email], camp_id: current_user.camp_id)
+        format.js { flash[:notice] = "Invite Email Sent" }
+      else
+        format.js { flash[:alert] = "There has been an error, please try again" }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_camp

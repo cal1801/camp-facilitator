@@ -91,8 +91,9 @@
   </div>
 
   <div class="row">
-    <div class="col-12 d-flex justify-content-end">
+    <div class="col-12 text-right">
       <%= form.submit "Save Group and Activities", class: "btn btn-success" %>
+      <%= link_to 'Cancel', root_path, class: "btn btn-danger text-white" %>
     </div>
   </div>
 <% end %>

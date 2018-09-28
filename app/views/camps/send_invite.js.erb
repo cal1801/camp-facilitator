@@ -1,0 +1,16 @@
+<%if flash[:notice]%>
+  $("#info").html("<%= flash[:notice] %>").show(function() {
+    setTimeout(function() {
+      $("#info").fadeOut('slow');
+    }, 4000)
+  });
+  $('#invite_email').val("");
+  $('#invite-field').hide();
+<%elsif flash[:alert]%>
+  $("#alert").html("<%= flash[:alert] %>").show(function() {
+    setTimeout(function() {
+      $("#alert").fadeOut('slow');
+    }, 4000)
+  })
+  $('#invite_email').addClass("border-danger");
+<%end%>
