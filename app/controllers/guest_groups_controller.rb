@@ -41,7 +41,6 @@ class GuestGroupsController < ApplicationController
   # PATCH/PUT /guest_groups/1
   # PATCH/PUT /guest_groups/1.json
   def update
-    binding.pry
     respond_to do |format|
       if @guest_group.update(guest_group_params)
         format.html { redirect_to @guest_group, notice: 'Guest group was successfully updated.' }

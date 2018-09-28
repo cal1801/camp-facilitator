@@ -91,8 +91,8 @@
                     </div>
                   </div>
                   <div class="card-footer text-right">
-                    <%= link_to 'Edit Group', edit_guest_group_path(gg), class: "btn btn-sm btn-primary text-white" %>
-                    <%= link_to 'Delete Group', gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger text-white" %>
+                    <%= link_to "Edit Group & #{'Activity'.pluralize(gg.activities.count)}", edit_guest_group_path(gg), class: "btn btn-sm btn-primary text-white" %>
+                    <%= link_to "Delete Group & #{'Activity'.pluralize(gg.activities.count)}", gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger text-white" %>
                   </div>
                 </div>
               <%end%>
