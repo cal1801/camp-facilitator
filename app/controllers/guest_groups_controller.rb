@@ -26,7 +26,6 @@ class GuestGroupsController < ApplicationController
   # POST /guest_groups.json
   def create
     @guest_group = GuestGroup.new(guest_group_params)
-    binding.pry
     respond_to do |format|
       if @guest_group.save
         format.html { redirect_to @guest_group, notice: 'Guest group was successfully created.' }

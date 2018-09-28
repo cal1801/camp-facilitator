@@ -39,7 +39,7 @@
       <div class="col-12">
             <%if @guest_groups.empty?%>
               No Upcoming Guest Groups. Go and create one! <br />
-              <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success" %>
+              <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success text-white" %>
             <%else%>
               <%@guest_groups.each do |gg|%>
                 <div class="card mb-3">
@@ -53,7 +53,7 @@
                       </div>
                     </div>
                     <div class="row justify-content-between">
-                      <div class="col-auto">
+                      <div class="col">
                         <span class="text-muted"><%=gg.description%></span>
                       </div>
                     </div>
