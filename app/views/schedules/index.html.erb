@@ -5,8 +5,11 @@
         <h5 class="card-title"><%=@camp.name%></h5>
         <p class="card-text">
           <span class="oi oi-phone"></span> <%=@camp.phone_number%><br />
-          <%=link_to @camp.website, @camp.website%>
+          <%=link_to @camp.website, @camp.website, class: "btn btn-link btn-sm pl-0"%>
         </p>
+        <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success btn-sm btn-block text-white" %>
+        <button class="btn btn-primary btn-sm btn-block">Add Staff Member</button>
+        <button class="btn btn-secondary btn-sm btn-block">See Past Groups</button>
       </div>
     </div>
 
@@ -19,43 +22,45 @@
           <%@camp_accounts.each do |camp_acc|%>
             <%=camp_acc.full_name%>
             <%="(You)" if camp_acc.id = current_user.id%>
-            <%= link_to 'Edit', edit_account_path(camp_acc) if current_user.camp_admin? || camp_acc.id = current_user.id %>
+            <%= link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-link btn-sm pl-0" if current_user.camp_admin? || camp_acc.id = current_user.id %>
           <%end%>
         </p>
-        <div class="btn btn-primary btn-sm btn-block">
-          Add Staff Member
-        </div>
       </div>
     </div>
   </div>
   <div class="col-9">
     <div class="row">
-      <div class="col-12 d-flex justify-content-end">
-        <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success" %>
+      <div class="col-12 d-flex justify-content-between">
+        <h2 class="mb-0">Upcoming Guest Groups</h2>
+        <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success text-white" %>
       </div>
     </div>
     <div class="row mt-3">
       <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Upcoming Guest Groups</h5>
             <%if @guest_groups.empty?%>
               No Upcoming Guest Groups. Go and create one! <br />
               <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success" %>
             <%else%>
               <%@guest_groups.each do |gg|%>
-                <div class="row">
-                  <div class="col">
-                    <%=gg.name%>
-                  </div>
-                  <div class="col">
-                    <%=gg.description%>
-                  </div>
-                  <div class="col">
-                    <%=gg.arrives%>
-                  </div>
-                  <div class="col">
-                    <%=gg.leaves%>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row justify-content-between">
+                      <div class="col-auto">
+                        <h5 class="card-title"><%=gg.name%></h5>
+                      </div>
+
+                      <div class="col-auto">
+                        <%=gg.arrives.strftime("%b %e")%> - <%=gg.leaves.strftime("%b %e")%>
+                      </div>
+                    </div>
+                    <div class="row justify-content-between">
+                      <div class="col-auto">
+                        <span class="text-muted"><%=gg.description%></span>
+                      </div>
+                      <div class="col-auto">
+                        <%=gg.activities.count%> <%="Activity".pluralize(gg.activities.count)%>
+                      </div>
+                    </div>
                   </div>
                 </div>
               <%end%>
