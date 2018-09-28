@@ -50,15 +50,44 @@
                       </div>
 
                       <div class="col-auto">
-                        <%=gg.arrives.strftime("%b %e")%> - <%=gg.leaves.strftime("%b %e")%>
+                        <%=gg.arrives.strftime("%a, %b %e")%> - <%=gg.leaves.strftime("%a, %b %e")%>
                       </div>
                     </div>
                     <div class="row justify-content-between">
                       <div class="col-auto">
                         <span class="text-muted"><%=gg.description%></span>
                       </div>
-                      <div class="col-auto">
-                        <%=gg.activities.count%> <%="Activity".pluralize(gg.activities.count)%>
+                    </div>
+                    <div id="accordion" class="mt-3">
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              <%=gg.activities.count%> <%="Activity".pluralize(gg.activities.count)%> (Click to view)
+                            </button>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                            <%gg.activities.each do |activity|%>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="text-muted">Activity</div>
+                                  <%=activity.name%>
+                                </div>
+                                <div class="col">
+                                  <div class="text-muted">Staff needed</div>
+                                  <%=activity.staff_needed%>
+                                </div>
+                                <div class="col">
+                                  <div class="text-muted">When</div>
+                                  <%=activity.day.strftime("%a, %b %e") unless activity.day.nil?%> <%=activity.start.strftime("%l:%M")%> - <%=activity.end.strftime("%l:%M %P")%>
+                                </div>
+                              </div>
+                            <%end%>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
