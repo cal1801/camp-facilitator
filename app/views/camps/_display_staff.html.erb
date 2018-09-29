@@ -1,10 +1,14 @@
-<p class="card-text">
-  <%accounts.each do |camp_acc|%>
-    <%=camp_acc.full_name%>
-    <%="(You)" if camp_acc.id = current_user.id%>
-    <%= link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-info btn-xs ml-0 text-white" if current_user.camp_admin? || camp_acc.id = current_user.id %>
-  <%end%>
-</p>
+<%accounts.each do |camp_acc|%>
+  <div class="row">
+    <div class="col">
+      <p class="card-text">
+        <%=camp_acc.full_name%>
+        <%="(You)" if camp_acc.id == current_user.account_id%>
+        <%= link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-info btn-xs ml-0 text-white" if current_user.camp_admin? || camp_acc.id == current_user.account_id %>
+      </p>
+    </div>
+  </div>
+<%end%>
 
 <h6 class="card-subtitle text-muted" id="pending-title" style="<%=sanitize('display: none;') if pending.empty?%>">Pending</h6>
 <p class="card-text">
