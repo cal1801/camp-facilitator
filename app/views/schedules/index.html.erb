@@ -7,14 +7,16 @@
           <span class="oi oi-phone"></span> <%=@camp.phone_number%><br />
           <%=link_to @camp.website, @camp.website, class: "btn btn-link btn-sm pl-0"%>
         </p>
-        <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success btn-sm btn-block text-white" %>
-        <button class="btn btn-primary btn-sm btn-block" onclick="$('#invite-field').show()">Invite Staff Member</button>
-        <div class="form-group mt-3" id="invite-field" style="display: none;">
-          <%=form_tag send_invite_camps_path, remote: true do%>
-            <%=text_field_tag "invite_email", nil, placeholder: "Enter email", class: "form-control"%>
-            <%=submit_tag "Send Invite", class: "btn btn-primary btn-sm btn-block mt-1"%>
-          <%end%>
-        </div>
+        <% if current_user.camp_admin? %>
+          <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success btn-sm btn-block text-white"%>
+          <button class="btn btn-primary btn-sm btn-block" onclick="$('#invite-field').show()">Invite Staff Member</button>
+          <div class="form-group mt-3" id="invite-field" style="display: none;">
+            <%=form_tag send_invite_camps_path, remote: true do%>
+              <%=text_field_tag "invite_email", nil, placeholder: "Enter email", class: "form-control"%>
+              <%=submit_tag "Send Invite", class: "btn btn-primary btn-sm btn-block mt-1"%>
+            <%end%>
+          </div>
+        <%end%>
 
         <button class="btn btn-secondary btn-sm btn-block mt-2">See Past Groups</button>
       </div>
@@ -35,7 +37,7 @@
     <div class="row">
       <div class="col-12 d-flex justify-content-between">
         <h2 class="mb-0">Upcoming Guest Groups</h2>
-        <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success text-white" %>
+        <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success text-white" if current_user.camp_admin? %>
       </div>
     </div>
     <div class="row mt-3">
@@ -93,10 +95,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-footer text-right">
-                    <%= link_to "Edit Group & #{'Activity'.pluralize(gg.activities.count)}", edit_guest_group_path(gg), class: "btn btn-sm btn-primary text-white" %>
-                    <%= link_to "Delete Group & #{'Activity'.pluralize(gg.activities.count)}", gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger text-white" %>
-                  </div>
+                  <%if current_user.camp_admin?%>
+                    <div class="card-footer text-right">
+                      <%= link_to "Edit Group & #{'Activity'.pluralize(gg.activities.count)}", edit_guest_group_path(gg), class: "btn btn-sm btn-primary text-white" %>
+                      <%= link_to "Delete Group & #{'Activity'.pluralize(gg.activities.count)}", gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger text-white" %>
+                    </div>
+                  <%end%>
                 </div>
               <%end%>
             <%end%>
