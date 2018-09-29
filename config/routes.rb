@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
   resources :accounts
-  devise_for :users
+  devise_for :users, :controllers => { :invitations => 'users/invitations' }
   get "schedules/index"
   root "schedules#index"
 end

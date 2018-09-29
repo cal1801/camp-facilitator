@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_action :set_account, :check_permissions, only: [:show, :edit, :update, :destroy]
+  before_action :set_carrier_param, only: [:create]
   before_action :check_admin, only: [:index]
 
   # GET /accounts
@@ -88,5 +89,9 @@ class AccountsController < ApplicationController
       unless current_user.master_admin?
         redirect_to root_path, alert: "You don't have permission to access that page. Sorry."
       end
+    end
+
+    def set_carrier_param
+      params["account"]["carrier"] = params["account"]["carrier"].to_i
     end
 end

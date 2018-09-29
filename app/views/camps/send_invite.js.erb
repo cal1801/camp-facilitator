@@ -14,3 +14,11 @@
   })
   $('#invite_email').addClass("border-danger");
 <%end%>
+<%accounts = current_user.camp.accounts%>
+<%pending = current_user.camp.users.select{|u| u.account.nil?}%>
+$("#camp-staff").html("<%= escape_javascript render 'camps/display_staff', accounts: accounts, pending: pending %>")
+<%if pending.empty?%>
+  $("pending-title").hide();
+<%else%>
+  $("pending.title").show();
+<%end%>

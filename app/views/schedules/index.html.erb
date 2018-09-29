@@ -25,13 +25,9 @@
         <h5 class="card-title">
           Staff
         </h5>
-        <p class="card-text">
-          <%@camp_accounts.each do |camp_acc|%>
-            <%=camp_acc.full_name%>
-            <%="(You)" if camp_acc.id = current_user.id%>
-            <%= link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-info btn-xs ml-0 text-white" if current_user.camp_admin? || camp_acc.id = current_user.id %>
-          <%end%>
-        </p>
+        <div id="camp-staff">
+          <%=render "camps/display_staff", accounts: @camp_accounts, pending: @camp_pending_accounts%>
+        </div>
       </div>
     </div>
   </div>
