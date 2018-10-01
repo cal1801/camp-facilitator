@@ -1,22 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Facilitator Scheduling</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-light bg-light">
+  <%= link_to "#{current_user.camp.name} Schedule", root_path, class: "navbar-brand btn btn-link"%>
+  <div class="btn-group">
+    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%=current_user.account.first_name%>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right" style=" right: 0;left: auto;">
+      <%= link_to 'Edit Account', edit_account_path(current_user), class: "btn btn-link btn-block text-right" %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-link btn-block text-right" %>
+    </div>
   </div>
 </nav>
