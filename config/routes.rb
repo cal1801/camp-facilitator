@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       post 'send_invite'
     end
   end
-  resources :accounts
+  resources :accounts, except: [:show, :index]
   devise_for :users, :controllers => { :invitations => 'users/invitations' }
   get "schedules/index"
   get "schedules/your_work_schedule"
