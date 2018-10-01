@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_action :set_account, :check_permissions, only: [:show, :edit, :update, :destroy]
-  before_action :set_carrier_param, only: [:create]
+  before_action :set_carrier_param, only: [:create, :update]
   before_action :check_admin, only: [:index]
 
   # GET /accounts
@@ -92,6 +92,6 @@ class AccountsController < ApplicationController
     end
 
     def set_carrier_param
-      params["account"]["carrier"] = params["account"]["carrier"].to_i
+      params["account"]["carrier"] = params["account"]["carrier"].to_i unless params["account"]["carrier"] == ""
     end
 end

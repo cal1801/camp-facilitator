@@ -1,4 +1,9 @@
 class Account < ApplicationRecord
+  #first_name, last_name, phone_number, carrier
+  validates :first_name, :last_name, presence: true
+  validates :phone_number, length: { is: 14 }, :allow_blank => true
+  validates_presence_of :carrier, :if => :phone_number?
+
   has_one :user
   enum carrier: ["AT&T", "T-Mobile", "Verizon", "Sprint", "Virgin Mobile",
                  "Tracfone", "Metro PCS", "Boost Mobile", "Cricket",

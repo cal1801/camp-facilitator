@@ -1,12 +1,14 @@
-<nav class="navbar navbar-light bg-light">
-  <%= link_to "#{current_user.camp.name} Schedule", root_path, class: "navbar-brand btn btn-link"%>
-  <div class="btn-group">
-    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%=current_user.account.first_name%>
-    </button>
-    <div class="dropdown-menu dropdown-menu-right" style=" right: 0;left: auto;">
-      <%= link_to 'Edit Account', edit_account_path(current_user), class: "btn btn-link btn-block text-right" %>
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-link btn-block text-right" %>
+<%unless current_user.nil?%>
+  <nav class="navbar navbar-light bg-light">
+    <%= link_to "#{current_user.camp.name} Schedule", root_path, class: "navbar-brand btn btn-link"%>
+    <div class="btn-group">
+      <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%=current_user.account.nil? ? current_user.email : current_user.account.first_name%>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" style=" right: 0;left: auto;">
+        <%= link_to 'Edit Account', edit_account_path(current_user), class: "btn btn-link btn-block text-right" %>
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-link btn-block text-right" %>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+<%end%>

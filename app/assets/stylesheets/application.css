@@ -40,7 +40,7 @@ body {
   padding: 1em !important;
 }
 
-.alert {
+.cal.alert {
   position: absolute !important;
   right: 15px;
   top: 15px;
@@ -52,4 +52,14 @@ body {
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
+}
+
+.field_with_errors {
+  padding: initial;
+  background-color: transparent;
+  display: flex;
+}
+
+.field_with_errors input {
+  border: red solid 1px
 }
