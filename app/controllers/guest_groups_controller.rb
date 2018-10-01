@@ -33,7 +33,7 @@ class GuestGroupsController < ApplicationController
     @guest_group = GuestGroup.new(guest_group_params)
     respond_to do |format|
       if @guest_group.save
-        format.html { redirect_to @guest_group, notice: 'Guest group was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Guest group was successfully created.' }
         format.json { render :show, status: :created, location: @guest_group }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class GuestGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @guest_group.update(guest_group_params)
-        format.html { redirect_to @guest_group, notice: 'Guest group was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Guest group was successfully updated.' }
         format.json { render :show, status: :ok, location: @guest_group }
       else
         format.html { render :edit }

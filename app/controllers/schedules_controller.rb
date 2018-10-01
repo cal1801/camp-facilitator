@@ -19,6 +19,6 @@ class SchedulesController < ApplicationController
     @camp = current_user.camp
     @camp_accounts = @camp.accounts
     @camp_pending_accounts = @camp.users.select{|u| u.account.nil?}
-    @guest_groups = @camp.guest_groups
+    @guest_groups = @camp.guest_groups.order(:arrives)
   end
 end

@@ -3,6 +3,12 @@ class GuestGroup < ApplicationRecord
   validates :name, :arrives, :leaves, presence: true
   validate :dates_correct?
 
+  default_scope {where("leaves >= ?", DateTime.now)}
+
+  belongs_to :camp
+  has_many :activities, dependent: :delete_all
+  accepts_nested_attributes_for :activities
+
   def dates_correct?
     if arrives < Date.today()
       errors.add(:arrives, 'Arriving date cannot be in the past')
@@ -14,9 +20,4 @@ class GuestGroup < ApplicationRecord
       errors.add(:leaves, 'Cannot select a leaving date that is before the arriving date')
     end
   end
-
-  belongs_to :camp
-  has_many :activities, dependent: :delete_all
-  default_scope {where("leaves >= ?", DateTime.now)}
-  accepts_nested_attributes_for :activities
 end
