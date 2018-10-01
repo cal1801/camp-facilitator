@@ -66,9 +66,9 @@ class CampsController < ApplicationController
   def send_invite
     respond_to do |format|
       if User.invite!(:email => params[:invite_email], camp_id: current_user.camp_id)
-        format.js { flash[:notice] = "Invite Email Sent" }
+        format.js { flash.now[:notice] = "Invite Email Sent" }
       else
-        format.js { flash[:alert] = "There has been an error, please try again" }
+        format.js { flash.now[:alert] = "There has been an error, please try again" }
       end
     end
   end

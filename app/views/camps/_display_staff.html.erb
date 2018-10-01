@@ -9,9 +9,11 @@
   </div>
 <%end%>
 
-<h6 class="card-subtitle text-muted" id="pending-title" style="<%=sanitize('display: none;') if pending.empty?%>">Pending</h6>
-<p class="card-text">
-  <%pending.each do |user|%>
-    <%=user.email%>
-  <%end%>
-</p>
+<%if current_user.camp_admin? || current_user.master_admin?%>
+  <h6 class="card-subtitle text-muted mt-3" id="pending-title" style="<%=sanitize('display: none;') if pending.empty?%>">Pending</h6>
+  <p class="card-text">
+    <%pending.each do |user|%>
+      <%=user.email%>
+    <%end%>
+  </p>
+<%end%>
