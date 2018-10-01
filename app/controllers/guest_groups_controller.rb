@@ -3,19 +3,23 @@ class GuestGroupsController < ApplicationController
 
   # GET /guest_groups
   # GET /guest_groups.json
-  def index
-    @guest_groups = GuestGroup.all
-  end
+  #def index
+    #@guest_groups = GuestGroup.all
+  #end
 
   # GET /guest_groups/1
   # GET /guest_groups/1.json
-  def show
-  end
+  #def show
+  #end
 
   # GET /guest_groups/new
   def new
-    @guest_group = GuestGroup.new
-    @activities = [@guest_group.activities.build]
+    if current_user.camp_admin? || current_user.master_admin?
+      @guest_group = GuestGroup.new
+      @activities = [@guest_group.activities.build]
+    else
+      redirect_to root_path, alert: 'Not authorized to create a group'
+    end
   end
 
   # GET /guest_groups/1/edit
@@ -55,10 +59,14 @@ class GuestGroupsController < ApplicationController
   # DELETE /guest_groups/1
   # DELETE /guest_groups/1.json
   def destroy
-    @guest_group.destroy
-    respond_to do |format|
-      format.html { redirect_to guest_groups_url, notice: 'Guest group was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.camp_admin? || current_user.master_admin?
+      @guest_group.destroy
+      respond_to do |format|
+        format.html { redirect_to guest_groups_url, notice: 'Guest group was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to root_path, alert: 'Not authorized to delete a group'
     end
   end
 

@@ -14,7 +14,7 @@
       <div class="col-6 form-group field">
         <%= f.label :day %>
         <div class="d-flex form-group field">
-          <%= f.date_select :day, {start_year: Date.today.year, end_year: Date.today.year + 1, order: [:month, :day, :year]}, {class: "form-control"} %>
+          <%= f.date_field :day, min: Date.today, :value => Date.today(), class: "form-control" %>
         </div>
       </div>
       <div class="col">

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       post 'remove_worker'
     end
   end
-  resources :guest_groups
+  resources :guest_groups, except: [:show, :index]
   resources :camps do
     collection do
       post 'send_invite'

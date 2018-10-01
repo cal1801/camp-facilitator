@@ -1,0 +1,12 @@
+<% if errors.any? %>
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><%= pluralize(errors.count, "error") %> stopped this <%=params["controller"].humanize.titleize.singularize%> from being saved:</h4>
+        <% errors.full_messages.each do |message| %>
+          <%= message %><br />
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
