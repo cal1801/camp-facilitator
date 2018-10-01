@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-3">
+    <%=render "side_bar"%>
+  </div>
+  <div class="col-9">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between">
+        <h2 class="mb-0">Your Current Work Schedule</h2>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+      <%if @activities_by_week.empty?%>
+        No Current Work Assignments <br />
+        <%= link_to 'Sign Up for some!', root_path, class: "btn btn-success text-white" %>
+      <%else%>
+        <%@activities_by_week.each do |week, activities|%>
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title"><%=week.beginning_of_week.strftime("%a, %b %e")%> - <%=week.end_of_week.strftime("%a, %b %e")%></h4>
+              <%activities.sort_by{|a| a.day}.each do |activity|%>
+                <div class="card-text" id="activity_<%=activity.id%>-listing">
+                  <div class="row">
+                    <div class="col">
+                      <span class="lead"><strong><%=activity.name%></strong></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <%=activity.day.strftime("%a, %b %e")%> <%=activity.start.strftime("%l:%M")%> - <%=activity.end.strftime("%l:%M %P")%>
+                    </div>
+                    <div class="col">
+                      <%=activity.guest_group.name%>
+                    </div>
+                    <div class="col">
+                      <%=render "activities/working_choices", activity: activity%>
+                    </div>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+</div>

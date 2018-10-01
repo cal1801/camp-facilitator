@@ -1,37 +1,6 @@
 <div class="row">
   <div class="col-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title"><%=@camp.name%></h5>
-        <p class="card-text">
-          <span class="oi oi-phone"></span> <%=@camp.phone_number%><br />
-          <%=link_to @camp.website, @camp.website, class: "btn btn-link btn-sm pl-0"%>
-        </p>
-        <% if current_user.camp_admin? %>
-          <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success btn-sm btn-block text-white"%>
-          <button class="btn btn-primary btn-sm btn-block" onclick="$('#invite-field').show()">Invite Staff Member</button>
-          <div class="form-group mt-3" id="invite-field" style="display: none;">
-            <%=form_tag send_invite_camps_path, remote: true do%>
-              <%=text_field_tag "invite_email", nil, placeholder: "Enter email", class: "form-control"%>
-              <%=submit_tag "Send Invite", class: "btn btn-primary btn-sm btn-block mt-1"%>
-            <%end%>
-          </div>
-        <%end%>
-
-        <button class="btn btn-secondary btn-sm btn-block mt-2">See Past Groups</button>
-      </div>
-    </div>
-
-    <div class="card mt-3">
-      <div class="card-body">
-        <h5 class="card-title">
-          Staff
-        </h5>
-        <div id="camp-staff">
-          <%=render "camps/display_staff", accounts: @camp_accounts, pending: @camp_pending_accounts%>
-        </div>
-      </div>
-    </div>
+    <%=render "side_bar"%>
   </div>
   <div class="col-9">
     <div class="row">
@@ -42,16 +11,14 @@
     </div>
     <div class="row mt-3">
       <div class="col-12">
-            <%if @guest_groups.empty?%>
-              No Upcoming Guest Groups. Go and create one! <br />
-              <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success text-white" %>
-            <%else%>
-              <%@guest_groups.each do |gg|%>
-                <%=render "guest_groups/display_group", gg: gg%>
-              <%end%>
-            <%end%>
-          </div>
-        </div>
+        <%if @guest_groups.empty?%>
+          No Upcoming Guest Groups. Go and create one! <br />
+          <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success text-white" %>
+        <%else%>
+          <%@guest_groups.each do |gg|%>
+            <%=render "guest_groups/display_group", gg: gg%>
+          <%end%>
+        <%end%>
       </div>
     </div>
   </div>

@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   resources :accounts
   devise_for :users, :controllers => { :invitations => 'users/invitations' }
   get "schedules/index"
+  get "schedules/your_work_schedule"
   root "schedules#index"
 end
