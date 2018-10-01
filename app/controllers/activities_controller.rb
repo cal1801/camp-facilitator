@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :add_worker, :remove_worker]
 
   # GET /activities
   # GET /activities.json
@@ -58,6 +58,20 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def add_worker
+    @activity.users << current_user
+    respond_to do |format|
+      format.js { flash.now[:notice] = "Added you to the activity" }
+    end
+  end
+
+  def remove_worker
+    @activity.users.delete(current_user)
+    respond_to do |format|
+      format.js { flash.now[:notice] = "Removed you from the activity" }
     end
   end
 

@@ -76,24 +76,33 @@
                           <div class="card-body">
                             <%gg.activities.each do |activity|%>
                               <div class="mb-3 border border-info rounded p-3">
-                                <div class="row mb-1">
-                                  <div class="col">
-                                    <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Activity</div>
-                                    <%=activity.name%>
-                                  </div>
-                                  <div class="col">
-                                    <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff needed</div>
-                                    <%=activity.staff_needed%>
-                                  </div>
-                                </div>
                                 <div class="row">
-                                  <div class="col">
-                                    <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">When</div>
-                                    <%=activity.day.strftime("%a, %b %e") unless activity.day.nil?%> <%=activity.start.strftime("%l:%M")%> - <%=activity.end.strftime("%l:%M %P")%>
+                                  <div class="col-9">
+                                    <div class="row mb-1">
+                                      <div class="col">
+                                        <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Activity</div>
+                                        <%=activity.name%>
+                                      </div>
+                                      <div class="col">
+                                        <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Total Staff needed</div>
+                                        <%=activity.staff_needed%>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">When</div>
+                                        <%=activity.day.strftime("%a, %b %e") unless activity.day.nil?%> <%=activity.start.strftime("%l:%M")%> - <%=activity.end.strftime("%l:%M %P")%>
+                                      </div>
+                                      <div class="col">
+                                        <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
+                                        <div id="activity-<%=activity.id%>-workers">
+                                          <%=render "activities/working_names", activity: activity%>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="col">
-                                    <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
-                                    No one yet, be the first!
+                                  <div class="col-3 d-flex flex-column justify-content-center" id="activity-<%=activity.id%>">
+                                    <%=render "activities/working_choices", activity: activity%>
                                   </div>
                                 </div>
                               </div>

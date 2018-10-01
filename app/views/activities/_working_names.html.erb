@@ -1,0 +1,5 @@
+<%if activity.users.empty?%>
+  No one yet, be the first!
+<%else%>
+  <%=activity.users.map(&:account).flatten.map(&:full_name).map{|name| name == current_user.account.full_name ? "You" : name}.join(", ")%>
+<%end%>

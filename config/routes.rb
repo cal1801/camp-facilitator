@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :activities
+  resources :activities do
+    member do
+      post 'add_worker'
+      post 'remove_worker'
+    end
+  end
   resources :guest_groups
   resources :camps do
     collection do

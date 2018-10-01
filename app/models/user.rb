@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   belongs_to :account, optional: true
   belongs_to :camp
+  has_and_belongs_to_many :activities
 
   def set_default_role
     self.role ||= :user
