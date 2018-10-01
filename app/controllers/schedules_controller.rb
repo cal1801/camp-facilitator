@@ -5,7 +5,7 @@ class SchedulesController < ApplicationController
   end
 
   def your_work_schedule
-    @activities_by_week = current_user.activities.group_by{ |a| a.day.beginning_of_month }
+    @activities_by_week = current_user.activities.order(:day, :start).group_by{ |a| a.day.beginning_of_week }
   end
 
   private

@@ -15,7 +15,7 @@
         <%= link_to 'Sign Up for some!', root_path, class: "btn btn-success text-white" %>
       <%else%>
         <%@activities_by_week.each do |week, activities|%>
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-body">
               <h4 class="card-title"><%=week.beginning_of_week.strftime("%a, %b %e")%> - <%=week.end_of_week.strftime("%a, %b %e")%></h4>
               <%activities.sort_by{|a| a.day}.each do |activity|%>
