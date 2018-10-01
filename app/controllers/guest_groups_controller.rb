@@ -15,11 +15,12 @@ class GuestGroupsController < ApplicationController
   # GET /guest_groups/new
   def new
     @guest_group = GuestGroup.new
-    @activity = @guest_group.activities.build
+    @activities = [@guest_group.activities.build]
   end
 
   # GET /guest_groups/1/edit
   def edit
+    @activities = @guest_group.activities
   end
 
   # POST /guest_groups
@@ -69,6 +70,6 @@ class GuestGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def guest_group_params
-      params.require(:guest_group).permit(:name, :description, :arrives, :leaves, :camp_id, activities_attributes: [:id, :name, :day, :start, :end, :staff_needed])
+      params.require(:guest_group).permit(:name, :description, :arrives, :leaves, :camp_id, activities_attributes: [:id, :name, :day, :start, :end, :staff_needed, :destroy])
     end
 end

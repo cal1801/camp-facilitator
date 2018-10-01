@@ -26,6 +26,7 @@ body {
     ),
     url("outdoor_blur.jpg");
   background-size: cover;
+  background-attachment: fixed;
   /*background: #348F50;  /* fallback for old browsers */
   /*background: -webkit-linear-gradient(0.12turn, #3f87a6, #ebf8e1, #f69d3c);  /* Chrome 10-25, Safari 5.1-6 */
   /*background: linear-gradient(0.12turn, #3f87a6, #ebf8e1, #f69d3c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */

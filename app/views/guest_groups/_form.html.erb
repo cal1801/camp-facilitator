@@ -46,45 +46,12 @@
           <h5>Programs</h5>
         </div>
       </div>
-      <%=form.fields_for :activities, @activity do |a_form|%>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-8 form-group">
-                <%= a_form.label :name %>
-                <%= a_form.text_field :name, class: "form-control" %>
-              </div>
-              <div class="col-4 form-group">
-                <%= a_form.label :staff_needed, "Number Staff Needed" %>
-                <%= a_form.number_field :staff_needed, class: "form-control" %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6 form-group">
-                <%= a_form.label :day %>
-                <div class="d-flex form-group">
-                  <%= a_form.date_select :day, {start_year: Date.today.year, end_year: Date.today.year + 1, order: [:month, :day, :year]}, {class: "form-control"} %>
-                </div>
-              </div>
-              <div class="col">
-                <%= a_form.label :start %><br />
-                <div class="d-flex form-group">
-                  <%= a_form.time_select :start, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
-                </div>
-              </div>
-              <div class="col">
-                <%= a_form.label :end %>
-                <div class="d-flex form-group">
-                  <%= a_form.time_select :end, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <%end%>
-      <div class="row mt-3">
-        <div class="col-12">
-          <button class="btn btn-primary">Add Activity</button>
+      <div id="activities">
+        <%=form.fields_for :activities do |activity|%>
+          <%=render "activity_fields", f: activity%>
+        <%end%>
+        <div class='links'>
+          <%=link_to_add_association 'Add Activity', form, :activities, class: "btn btn-primary text-white mt-2"%>
         </div>
       </div>
     </div>

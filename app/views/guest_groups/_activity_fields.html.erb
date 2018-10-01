@@ -1,0 +1,39 @@
+<div class="card nested-fields mb-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-8 form-group field">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="col-4 form-group field">
+        <%= f.label :staff_needed, "Number Staff Needed" %>
+        <%= f.number_field :staff_needed, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 form-group field">
+        <%= f.label :day %>
+        <div class="d-flex form-group field">
+          <%= f.date_select :day, {start_year: Date.today.year, end_year: Date.today.year + 1, order: [:month, :day, :year]}, {class: "form-control"} %>
+        </div>
+      </div>
+      <div class="col">
+        <%= f.label :start %><br />
+        <div class="d-flex form-group field">
+          <%= f.time_select :start, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
+        </div>
+      </div>
+      <div class="col">
+        <%= f.label :end %>
+        <div class="d-flex form-group field">
+          <%= f.time_select :end, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-right">
+        <%= link_to_remove_association "Remove Activity", f, class: "btn btn-danger text-white"%>
+      </div>
+    </div>
+  </div>
+</div>
