@@ -95,19 +95,17 @@ class GuestGroupsController < ApplicationController
 
     #send emails if activity is deleted
     def alet_users_of_deleted_activites(deleted_activities)
-      unless current_user.camp_admin?
-        @guest_group.camp.accounts.each do |account|
-          user = account.user
-          ids = []
-          if params["_method"] == "delete"
-            ids = deleted_activities.map(&:id)
-          else
-            deleted_activities.each{|i, data| ids << data["id"].to_i}
-          end
-          working_deleted_activities = user.activities.where(id: ids)
-          unless working_deleted_activities.empty?
-            WorkNotifierMailer.activities_deleted(account, working_deleted_activities, @guest_group.name).deliver!
-          end
+      @guest_group.camp.accounts.each do |account|
+        user = account.user
+        ids = []
+        if params["_method"] == "delete"
+          ids = deleted_activities.map(&:id)
+        else
+          deleted_activities.each{|i, data| ids << data["id"].to_i}
+        end
+        working_deleted_activities = user.activities.where(id: ids)
+        unless working_deleted_activities.empty?
+          WorkNotifierMailer.activities_deleted(account, working_deleted_activities, @guest_group.name).deliver!
         end
       end
     end

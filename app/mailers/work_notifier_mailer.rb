@@ -16,12 +16,13 @@ class WorkNotifierMailer < ApplicationMailer
     @account = account
     @activities = activities
     @guest_group_name = guest_group_name
-
-    mail(
-      :to => @account.user.email,
-      :from => @account.user.camp.users.select{|u| u.camp_admin?}.first.email,
-      :subject => "#{guest_group_name} removed activities"
-    )
+    unless user.camp_admin?
+      mail(
+        :to => @account.user.email,
+        :from => @account.user.camp.users.select{|u| u.camp_admin?}.first.email,
+        :subject => "#{guest_group_name} removed activities"
+      )
+    end
   end
 
   def let_camp_admin_know(activity, user, method)
