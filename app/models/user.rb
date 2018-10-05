@@ -6,7 +6,7 @@ class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record?
 
   belongs_to :account, optional: true
-  belongs_to :camp
+  belongs_to :camp, optional: true
   has_and_belongs_to_many :activities
 
   def set_default_role
