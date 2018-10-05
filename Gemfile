@@ -37,6 +37,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'pry'
 gem "cocoon"
+gem 'sendgrid-ruby'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
