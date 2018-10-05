@@ -32,7 +32,6 @@ class WorkNotifierMailer < ApplicationMailer
     unless user == camp_admin || user.camp_admin?
       mail(
         :to => camp_admin.email,
-        :from => camp_admin.email,
         :subject => "Schedule Update"
       )
     end
