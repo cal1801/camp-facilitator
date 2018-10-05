@@ -63,6 +63,7 @@ class ActivitiesController < ApplicationController
 
   def add_worker
     @activity.users << current_user
+    alert_camp_admin_of_activity("added")
     respond_to do |format|
       format.js { flash.now[:notice] = "Added you to the activity" }
     end
@@ -70,6 +71,7 @@ class ActivitiesController < ApplicationController
 
   def remove_worker
     @activity.users.delete(current_user)
+    alert_camp_admin_of_activity("removed")
     respond_to do |format|
       format.js { flash.now[:notice] = "Removed you from the activity" }
     end
@@ -79,6 +81,11 @@ class ActivitiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])
+    end
+
+    #send emails if activity is deleted
+    def alert_camp_admin_of_activity(method)
+      WorkNotifierMailer.let_camp_admin_know(@activity, current_user, method).deliver!
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

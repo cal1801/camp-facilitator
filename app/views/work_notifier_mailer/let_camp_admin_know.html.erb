@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%=@account.first_name%> was <%=@method%> <%=@method == "removed" ? "from" : "to"%> the schedule</h1>
+    <p>
+      <%=@activity.guest_group.name%> - <%=@activity.name%><br />
+      <%if @activity.users.count == @activity.staff_needed%>
+        WAAA HOOO!!! All slots have been filled for this activity!!
+      <%else%>
+        There are still <%=@activity.staff_needed - @activity.users.count%> needed for this activity
+      <%end%>
+    </p>
+  </body>
+</html>
