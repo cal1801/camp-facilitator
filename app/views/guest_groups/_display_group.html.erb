@@ -2,7 +2,14 @@
   <div class="card-body">
     <div class="row justify-content-between">
       <div class="col-auto d-flex">
-        <h4 class="card-title mr-3"><%=gg.name%></h4>
+        <h4 class="card-title mr-3">
+          <%if current_user.previously_seen_at.nil?%>
+            <span class="text-primary">New</span> - 
+          <%elsif gg.updated_at > current_user.previously_seen_at%>
+            <span class="text-primary">New</span> - 
+          <%end%>
+          <%=gg.name%>
+        </h4>
       </div>
       <div class="col-auto">
         <h5 class="card-title"><%=gg.arrives.strftime("%a, %b %e")%> - <%=gg.leaves.strftime("%a, %b %e")%></h5>
