@@ -63,13 +63,13 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "camp-facilitator_#{Rails.env}"
 
-  config.action_mailer.default_url_options = { :host => 'camp-facilitator.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'www.thecampschedule.com' }
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     :user_name => ENV["SENDGRID_USER_NAME"],
     :password => ENV["SENDGRID_PASSWORD"],
-    :domain => "",
+    :domain => "www.thecampschedule.com",
     :address => 'smtp.sendgrid.net',
     :port => 587,
     :authentication => :plain,

@@ -1,4 +1,6 @@
 class WorkNotifierMailer < ApplicationMailer
+  default from: 'reminder@thecampschedule.com'
+
   def send_work_email(account,activities)
     @account = account
     @activities = activities
