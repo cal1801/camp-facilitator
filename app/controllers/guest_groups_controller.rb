@@ -46,7 +46,14 @@ class GuestGroupsController < ApplicationController
   # PATCH/PUT /guest_groups/1.json
   def update
     #send email update if any activities are Removed
-    alet_users_of_deleted_activites(params["guest_group"]["activities_attributes"].select{|a, data| data["_destroy"] == "1"}) unless params["guest_group"]["activities_attributes"].select{|a, data| data["_destroy"] == "1"}.empty?
+    activities_to_remove = params["guest_group"]["activities_attributes"].select{|a, data| data["_destroy"] == "1"}
+    alet_users_of_deleted_activites(activities_to_remove) unless activities_to_remove.empty?
+
+    #remove any work assignments
+    activities_to_remove.each do |i, act_param|
+      Activity.find(act_param["id"].to_i).users.clear
+    end
+
     respond_to do |format|
       if @guest_group.update(guest_group_params)
         format.html { redirect_to root_path, notice: 'Guest group was successfully updated.' }

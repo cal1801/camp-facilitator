@@ -5,7 +5,8 @@ class Activity < ApplicationRecord
   validate :start_before_end?
 
   belongs_to :guest_group, optional: true
-  has_and_belongs_to_many :users, dependent: :delete_all
+  has_and_belongs_to_many :users
+  before_destroy { users.clear }
 
   def day_in_guest_group?
     group = self.guest_group
