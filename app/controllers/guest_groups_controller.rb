@@ -45,6 +45,8 @@ class GuestGroupsController < ApplicationController
   # PATCH/PUT /guest_groups/1
   # PATCH/PUT /guest_groups/1.json
   def update
+    #send email update if any activities are Removed
+    alet_users_of_deleted_activites(params["guest_group"]["activities_attributes"].select{|a, data| data["_destroy"] == "1"}) unless params["guest_group"]["activities_attributes"].select{|a, data| data["_destroy"] == "1"}.empty?
     respond_to do |format|
       if @guest_group.update(guest_group_params)
         format.html { redirect_to root_path, notice: 'Guest group was successfully updated.' }
@@ -59,6 +61,8 @@ class GuestGroupsController < ApplicationController
   # DELETE /guest_groups/1
   # DELETE /guest_groups/1.json
   def destroy
+    #send email update if any activities are Removed
+    alet_users_of_deleted_activites(@guest_group.activities)
     if current_user.camp_admin? || current_user.master_admin?
       @guest_group.destroy
       respond_to do |format|
@@ -76,8 +80,25 @@ class GuestGroupsController < ApplicationController
       @guest_group = GuestGroup.find(params[:id])
     end
 
+    #send emails if activity is deleted
+    def alet_users_of_deleted_activites(deleted_activities)
+      @guest_group.camp.accounts.each do |account|
+        user = account.user
+        ids = []
+        if params["_method"] == "delete"
+          ids = deleted_activities.map(&:id)
+        else
+          deleted_activities.each{|i, data| ids << data["id"].to_i}
+        end
+        working_deleted_activities = user.activities.where(id: ids)
+        unless working_deleted_activities.empty?
+          WorkNotifierMailer.activities_deleted(account, working_deleted_activities, @guest_group.name).deliver!
+        end
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def guest_group_params
-      params.require(:guest_group).permit(:name, :description, :arrives, :leaves, :camp_id, activities_attributes: [:id, :name, :day, :start, :end, :staff_needed, :destroy])
+      params.require(:guest_group).permit(:name, :description, :arrives, :leaves, :camp_id, activities_attributes: [:id, :name, :day, :start, :end, :staff_needed, :_destroy])
     end
 end

@@ -7,7 +7,7 @@ class GuestGroup < ApplicationRecord
 
   belongs_to :camp
   has_many :activities, dependent: :delete_all
-  accepts_nested_attributes_for :activities
+  accepts_nested_attributes_for :activities, allow_destroy: true
 
   def dates_correct?
     if arrives < Date.today()

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Activities removed from <%=@guest_group_name%></h1>
+    <p>
+      Unfortunately you were scheduled to work one of those activities. Below
+      <%="is".pluralize(@activities.count)%> the
+      <%="activity".pluralize(@activities.count)%> that
+      <%="was".pluralize(@activities.count)%> removed.
+    </p>
+    <ul>
+      <%@activities.each do |activity|%>
+        <li>
+          <%=activity.day.strftime('%b %d')%> <%=activity.start.strftime('%l:%M')%> - <%=activity.end.strftime('%l:%M%P')%> - <%=activity.name%>
+        </li>
+      <%end%>
+    </ul>
+  </body>
+</html>
