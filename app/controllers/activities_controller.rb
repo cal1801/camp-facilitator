@@ -70,8 +70,12 @@ class ActivitiesController < ApplicationController
   end
 
   def remove_worker
-    @activity.users.delete(current_user)
-    alert_camp_admin_of_activity("removed")
+    if params["user"].present?
+      @activity.users.delete(User.find(params["user"]))
+    else
+      @activity.users.delete(current_user)
+      alert_camp_admin_of_activity("removed")
+    end
     respond_to do |format|
       format.js { flash.now[:notice] = "Removed you from the activity" }
     end

@@ -3,9 +3,13 @@ $("#info").html("<%= flash[:notice] %>").show(function() {
     $("#info").fadeOut('slow');
   }, 4000)
 });
+<%if params["user"].present?%>
+  $("#activity_<%=@activity.id%>_user_<%=params['user']%>").remove()
+<%else%>
 if ($("#activity-<%=@activity.id%>").length > 0) {
   $("#activity-<%=@activity.id%>").html("<%= escape_javascript render 'activities/working_choices', activity: @activity %>")
   $("#activity-<%=@activity.id%>-workers").html("<%= escape_javascript render 'activities/working_names', activity: @activity %>")
 } else {
   $("#activity_<%=@activity.id%>-listing").remove()
 }
+<%end%>
