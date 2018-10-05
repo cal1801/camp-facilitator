@@ -1,9 +1,15 @@
 <%accounts.each do |camp_acc|%>
   <div class="row">
     <div class="col">
-      <p class="card-text">
+      <p class="card-text" id="<%=camp_acc.id%>_staff_listing">
         <%=camp_acc.full_name%>
-        <%= link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-info btn-xs ml-0 text-white mb-1" if camp_acc.id == current_user.account_id %>
+        <%if camp_acc.id == current_user.account_id%>
+          <%=link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-info btn-xs ml-0 text-white mb-1"%>
+        <%elsif current_user.camp_admin?%>
+          <%= link_to remove_account_from_camp_camps_path(account: camp_acc), method: :post, class: 'btn btn-xs btn-danger text-white', :remote => true do %>
+            Remove
+          <% end %>
+        <%end%>
       </p>
     </div>
   </div>

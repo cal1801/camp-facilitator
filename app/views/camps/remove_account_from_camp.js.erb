@@ -1,0 +1,22 @@
+<%if flash[:notice]%>
+  $("#info").html("<%= flash[:notice] %>").show(function() {
+    setTimeout(function() {
+      $("#info").fadeOut('slow');
+    }, 4000)
+  });
+  $('#<%=params["account"]%>_staff_listing').remove();
+<%elsif flash[:alert]%>
+  $("#alert").html("<%= flash[:alert] %>").show(function() {
+    setTimeout(function() {
+      $("#alert").fadeOut('slow');
+    }, 4000)
+  })
+<%end%>
+<%accounts = current_user.camp.accounts%>
+<%pending = current_user.camp.users.select{|u| u.account.nil?}%>
+$("#camp-staff").html("<%= escape_javascript render 'camps/display_staff', accounts: accounts, pending: pending %>")
+<%if pending.empty?%>
+  $("pending-title").hide();
+<%else%>
+  $("pending.title").show();
+<%end%>

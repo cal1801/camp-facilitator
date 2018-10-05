@@ -73,6 +73,16 @@ class CampsController < ApplicationController
     end
   end
 
+  def remove_account_from_camp
+    @account = Account.find(params["account"])
+    binding.pry
+    if @account.user.delete
+      format.js { flash.now[:notice] = "Removed #{@account.full_name} from camp's staff list" }
+    else
+      format.js { flash.now[:alert] = "There has been an error, please try again" }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_camp

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :camps do
     collection do
       post 'send_invite'
+      post 'remove_account_from_camp'
     end
   end
   resources :accounts, except: [:show, :index]

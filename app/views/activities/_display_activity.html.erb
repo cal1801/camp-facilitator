@@ -21,7 +21,7 @@
               <div class="mt-2" id="activity_<%=activity.id%>_user_<%=user.id%>">
                 <%=user.account.full_name%>
                 <%= link_to remove_worker_activity_path(activity.id, user: user.id), method: :post, class: 'btn btn-xs btn-danger text-white ml-2', :remote => true do %>
-                  Remove
+                  Un-schedule
                 <% end %>
               </div>
             <%end%>
