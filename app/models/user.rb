@@ -5,7 +5,7 @@ class User < ApplicationRecord
   enum role: [:user, :camp_admin, :master_admin]
   after_initialize :set_default_role, :if => :new_record?
 
-  belongs_to :account, optional: true, dependent: :delete_all
+  belongs_to :account, optional: true, dependent: :delete
   belongs_to :camp, optional: true
   has_and_belongs_to_many :activities, dependent: :delete_all
 
