@@ -62,7 +62,7 @@ class GuestGroupsController < ApplicationController
     if current_user.camp_admin? || current_user.master_admin?
       @guest_group.destroy
       respond_to do |format|
-        format.html { redirect_to guest_groups_url, notice: 'Guest group was successfully destroyed.' }
+        format.html { redirect_to root_path, notice: 'Guest group was successfully destroyed.' }
         format.json { head :no_content }
       end
     else
