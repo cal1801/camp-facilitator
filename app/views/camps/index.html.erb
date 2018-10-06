@@ -18,7 +18,7 @@
         <td><%= camp.name %></td>
         <td><%= camp.website %></td>
         <td><%= camp.phone_number %></td>
-        <td><%= link_to 'Show', camp %></td>
+        <td><%= link_to 'Show', root_path(camp: camp.id) %></td>
         <td><%= link_to 'Edit', edit_camp_path(camp) %></td>
         <td><%= link_to 'Destroy', camp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
