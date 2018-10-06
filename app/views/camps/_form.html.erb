@@ -20,18 +20,20 @@
             </div>
           </div>
           <div class="row">
-            <div class="col">
+            <div class="col-6 ">
               <div class="form-group">
                 <%= form.label :phone_number %><br />
                 <%= form.text_field :phone_number, class: "form-control" %>
               </div>
             </div>
-            <div class="col">
-              <div class="form-group">
-                <%= label_tag "User Email Address" %><br />
-                <%= text_field_tag "user_email", nil, class: "form-control" %>
+            <%if params["action"] == "new"%>
+              <div class="col">
+                <div class="form-group">
+                  <%= label_tag "User Email Address" %><br />
+                  <%= text_field_tag "user_email", nil, class: "form-control" %>
+                </div>
               </div>
-            </div>
+            <%end%>
           </div>
         </div>
         <div class="card-footer">

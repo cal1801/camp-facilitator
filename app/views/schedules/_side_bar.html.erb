@@ -5,9 +5,10 @@
       <span class="oi oi-phone"></span> <%=@camp.phone_number%><br />
       <%=link_to @camp.website, @camp.website, class: "btn btn-link btn-sm pl-0"%>
     </p>
+    <%=link_to 'Edit Camp', edit_camp_path(@camp), class: "btn btn-info btn-sm btn-block ml-0 mb-3 text-white" if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
     <h6 class="card-title my-0">Admin Staff</h6>
     <p class="card-text">
-      <%@camp_accounts.select{|a| a.user.camp_admin?}.each do |account|%>
+      <%@camp_accounts.select{|a| a.user.camp_admin? || a.user.master_admin?}.each do |account|%>
         <%=account.full_name%>
         <%if account.id == current_user.account_id%>
           <%=link_to 'Edit', edit_account_path(account), class: "btn btn-info btn-xs ml-0 text-white mb-1"%>

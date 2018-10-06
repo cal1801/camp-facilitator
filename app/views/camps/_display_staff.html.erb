@@ -1,4 +1,4 @@
-<%accounts.reject{|a| a.user.camp_admin?}.each do |camp_acc|%>
+<%accounts.reject{|a| a.user.camp_admin? || a.user.master_admin?}.each do |camp_acc|%>
   <div class="row">
     <div class="col">
       <p class="card-text" id="<%=camp_acc.id%>_staff_listing">
