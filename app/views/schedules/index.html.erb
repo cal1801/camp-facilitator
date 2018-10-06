@@ -12,8 +12,8 @@
     <div class="row mt-3">
       <div class="col-12">
         <%if @guest_groups.empty?%>
-          No Upcoming Guest Groups. Go and create one! <br />
-          <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success text-white" %>
+          No Upcoming Guest Groups. <br />
+          <%= link_to 'Add New Guest Group', new_guest_group_path, class: "btn btn-success text-white" if current_user.camp_admin?%>
         <%else%>
           <%@guest_groups.each do |gg|%>
             <%=render "guest_groups/display_group", gg: gg%>

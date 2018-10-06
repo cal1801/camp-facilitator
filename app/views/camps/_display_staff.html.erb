@@ -1,4 +1,4 @@
-<%accounts.each do |camp_acc|%>
+<%accounts.reject{|a| a.user.camp_admin?}.each do |camp_acc|%>
   <div class="row">
     <div class="col">
       <p class="card-text" id="<%=camp_acc.id%>_staff_listing">
@@ -6,7 +6,7 @@
         <%if camp_acc.id == current_user.account_id%>
           <%=link_to 'Edit', edit_account_path(camp_acc), class: "btn btn-info btn-xs ml-0 text-white mb-1"%>
         <%elsif current_user.camp_admin?%>
-          <%= link_to remove_account_from_camp_camps_path(account: camp_acc), method: :post, class: 'btn btn-xs btn-danger text-white', :remote => true do %>
+          <%= link_to remove_account_from_camp_camps_path(account: camp_acc), method: :post, class: 'btn btn-xs btn-danger text-white mb-1', :remote => true do %>
             Remove
           <% end %>
         <%end%>
@@ -20,6 +20,9 @@
   <p class="card-text">
     <%pending.each do |user|%>
       <%=user.email%>
+      <%= link_to remove_account_from_camp_camps_path(user: user), method: :post, class: 'btn btn-xs btn-danger text-white', :remote => true do %>
+        Remove
+      <% end %>
     <%end%>
   </p>
 <%end%>

@@ -74,11 +74,17 @@ class CampsController < ApplicationController
   end
 
   def remove_account_from_camp
-    @account = Account.find(params["account"])
-    @account.user.activities.clear
+    if params["account"].present?
+      @account = Account.find(params["account"])
+      user = @account.user
+    else
+      user = User.find(params["user"])
+    end
+
+    user.activities.clear
     respond_to do |format|
-      if @account.user.delete
-        format.js { flash.now[:notice] = "Removed #{@account.full_name} from camp's staff list" }
+      if user.delete
+        format.js { flash.now[:notice] = "Removed #{defined?(@account) ? @account.full_name : user.email} from camp's staff list" }
       else
         format.js { flash.now[:alert] = "There has been an error, please try again" }
       end

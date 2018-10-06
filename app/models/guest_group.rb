@@ -3,7 +3,7 @@ class GuestGroup < ApplicationRecord
   validates :name, :arrives, :leaves, presence: true
   validate :dates_correct?
 
-  default_scope {where("leaves >= ?", DateTime.now)}
+  default_scope {where("leaves >= ?", Date.today())}
 
   belongs_to :camp
   has_many :activities, dependent: :delete_all
