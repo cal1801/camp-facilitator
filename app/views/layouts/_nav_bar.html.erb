@@ -1,6 +1,17 @@
 <%unless current_user.nil?%>
   <nav class="navbar navbar-light bg-light">
     <%= link_to "#{current_user.camp.name} Schedule", root_path, class: "navbar-brand btn btn-link"%>
+    <%if current_user.master_admin?%>
+      <div class="dropdown mr-auto">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Camps
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <%=link_to "View Camps", camps_path, class: "dropdown-item"%>
+          <%=link_to "Add New Camp", new_camp_path, class: "nav-link btn btn-link"%>
+        </div>
+      </div>
+    <%end%>
     <div class="btn-group">
       <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%=current_user.account.nil? ? current_user.email : current_user.account.first_name%>

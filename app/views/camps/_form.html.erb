@@ -1,32 +1,51 @@
+<%= render "layouts/error_display", errors: camp.errors%>
+
 <%= form_with(model: camp, local: true) do |form| %>
-  <% if camp.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(camp.errors.count, "error") %> prohibited this camp from being saved:</h2>
-
-      <ul>
-      <% camp.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <%= form.label :name %>
+                <%= form.text_field :name, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <%= form.label :website %>
+                <%= form.text_field :website, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <%= form.label :phone_number %><br />
+                <%= form.text_field :phone_number, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <%= label_tag "User Email Address" %><br />
+                <%= text_field_tag "user_email", nil, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= form.submit "Save", class: "btn btn-success" %>
+          <%= link_to 'Cancel', root_path, class: "btn btn-danger text-white" %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :website %>
-    <%= form.text_field :website %>
-  </div>
-
-  <div class="field">
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<%end%>
+<%content_for :bottom_script do%>
+  <script>
+    $(document).ready(function(){
+      $("#camp_phone_number").mask('(000) 000-0000');
+    });
+  </script>
+<%end%>

@@ -26,12 +26,17 @@ class CampsController < ApplicationController
   # POST /camps
   # POST /camps.json
   def create
+    binding.pry
     @camp = Camp.new(camp_params)
-
     respond_to do |format|
       if @camp.save
-        format.html { redirect_to @camp, notice: 'Camp was successfully created.' }
-        format.json { render :show, status: :created, location: @camp }
+        if User.invite!(:email => params[:user_email], camp_id: @camp.id, role: "camp_admin")
+          format.html { redirect_to @camp, notice: 'Camp and user was successfully created.' }
+          format.json { render :show, status: :created, location: @camp }
+        else
+          format.html { render :new }
+          format.json { render json: {"User Error" => "Not able to send email"}, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @camp.errors, status: :unprocessable_entity }
