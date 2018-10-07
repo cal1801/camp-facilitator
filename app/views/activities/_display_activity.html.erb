@@ -1,6 +1,6 @@
 <div class="mb-3 border border-info rounded p-3">
   <div class="row">
-    <div class="col-9">
+    <div class="col-md-9">
       <div class="row mb-1">
         <div class="col">
           <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Activity</div>
@@ -27,9 +27,9 @@
             <%end%>
           <%else%>
             <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Total Staff needed</div>
-            <%=activity.staff_needed%><br /><br />
+            <%=activity.staff_needed%><br />
 
-            <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
+            <div class="text-muted mt-2" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
             <div id="activity-<%=activity.id%>-workers">
               <%=render "activities/working_names", activity: activity%>
             </div>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="col-3 d-flex flex-column justify-content-center" id="activity-<%=activity.id%>">
+    <div class="col-md-3 d-flex flex-column justify-content-center" id="activity-<%=activity.id%>">
       <%=render "activities/working_choices", activity: activity%>
     </div>
   </div>
