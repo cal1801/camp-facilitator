@@ -15,14 +15,7 @@ class Account < ApplicationRecord
   end
 
   def self.send_work_emails
-    require 'sendgrid-ruby'
-    include SendGrid
-    from = Email.new(email: 'callanfindeiss@gmail.com')
-    subject = 'Upcoming Scheduled Work'
-
     accounts = Account.all.reject{|a| a.user.nil?}
-    replacements = [["(",""], [")",""], [" ",""], ["-",""]]
-    carrier_addresses = carrier_emails
 
     accounts.each do |this_account|
       unless this_account.user.activities.empty? || this_account.user.nil?

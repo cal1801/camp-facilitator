@@ -26,7 +26,6 @@ class CampsController < ApplicationController
   # POST /camps
   # POST /camps.json
   def create
-    binding.pry
     @camp = Camp.new(camp_params)
     respond_to do |format|
       if @camp.save

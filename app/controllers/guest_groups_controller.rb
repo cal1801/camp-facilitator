@@ -50,7 +50,7 @@ class GuestGroupsController < ApplicationController
     alet_users_of_deleted_activites(activities_to_remove) unless activities_to_remove.empty?
 
     #remove any work assignments
-    activities_to_remove.each do |i, act_param|
+    activities_to_remove.each do |_i, act_param|
       Activity.find(act_param["id"].to_i).users.clear
     end
 
@@ -101,7 +101,7 @@ class GuestGroupsController < ApplicationController
         if params["_method"] == "delete"
           ids = deleted_activities.map(&:id)
         else
-          deleted_activities.each{|i, data| ids << data["id"].to_i}
+          deleted_activities.each{|_i, data| ids << data["id"].to_i}
         end
         working_deleted_activities = user.activities.where(id: ids)
         unless working_deleted_activities.empty?
