@@ -21,6 +21,8 @@ class Account < ApplicationRecord
       unless this_account.user.activities.empty? || this_account.user.nil?
         activities = this_account.user.activities.where("day = ?", Date.today()+7)
         unless activities.empty?
+          puts "Sending #{activities.count} to #{this_account.full_name}"
+          WorkNotifierMailer.send_work_email(this_account, activities, "week").deliver!
         end
       end
     end
@@ -33,6 +35,7 @@ class Account < ApplicationRecord
       unless this_account.user.activities.empty? || this_account.user.nil?
         activities = this_account.user.activities.where("day = ?", Date.today()+1)
         unless activities.empty?
+          puts "Sending #{activities.count} to #{this_account.full_name}"
           WorkNotifierMailer.send_work_email(this_account, activities, "day").deliver!
         end
       end
