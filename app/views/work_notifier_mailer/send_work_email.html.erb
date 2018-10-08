@@ -5,11 +5,18 @@
   </head>
   <body>
     <h1>Hey <%=@account.first_name%>!</h1>
-    <p>
-      Good news, you are on the schedule in the next two weeks! Take a look
-      below just to confirm the times that we have for you to work. Please give
-      us a call if you have any questions or need to talk about you schedule.
-    </p>
+    <%if @time_frame == "week"%>
+      <p>
+        Good news, you are on the schedule in a week! Take a look below to
+        confirm the times that we have for you to work. Please give us a call
+        if you have any questions or need to talk about you schedule.
+      </p>
+    <%else%>
+      <p>
+        Just a quick reminder about your work that is happening tomorrow. As
+        always, please give us a call if there is any issues.
+      </p>
+    <%end%>
     <ul>
       <%@activities.each do |activity|%>
         <li>

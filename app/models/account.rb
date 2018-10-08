@@ -14,14 +14,26 @@ class Account < ApplicationRecord
     "#{self.first_name} #{self.last_name[0]}."
   end
 
-  def self.send_work_emails
+  def self.send_week_work_emails
     accounts = Account.all.reject{|a| a.user.nil?}
 
     accounts.each do |this_account|
       unless this_account.user.activities.empty? || this_account.user.nil?
-        activities = this_account.user.activities.where("day >= ? AND day <= ?", Date.today().beginning_of_week, (Date.today()+8).end_of_week)
+        activities = this_account.user.activities.where("day = ?", Date.today()+7)
         unless activities.empty?
-          WorkNotifierMailer.send_work_email(this_account, activities).deliver!
+        end
+      end
+    end
+  end
+
+  def self.send_day_before_emails
+    accounts = Account.all.reject{|a| a.user.nil?}
+
+    accounts.each do |this_account|
+      unless this_account.user.activities.empty? || this_account.user.nil?
+        activities = this_account.user.activities.where("day = ?", Date.today()+1)
+        unless activities.empty?
+          WorkNotifierMailer.send_work_email(this_account, activities, "day").deliver!
         end
       end
     end

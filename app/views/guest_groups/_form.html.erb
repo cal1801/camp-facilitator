@@ -20,11 +20,11 @@
           </div>
           <div class="form-group">
             <%= form.label :arrives %><br />
-            <%= form.date_field :arrives, min: Date.today, :value => Date.today(), class: "form-control" %>
+            <%= form.date_field :arrives, min: Date.today, default: Date.today(), class: "form-control" %>
           </div>
           <div class="form-group">
             <%= form.label :leaves %>
-            <%= form.date_field :leaves, min: Date.today, :value => Date.today()+1, class: "form-control" %>
+            <%= form.date_field :leaves, min: Date.today, default: Date.today()+1, class: "form-control" %>
           </div>
           <%=form.hidden_field :camp_id, value: current_user.camp_id%>
         </div>

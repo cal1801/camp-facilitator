@@ -4,9 +4,9 @@
       <div class="col-auto d-flex">
         <h4 class="card-title mr-3">
           <%if current_user.previously_seen_at.nil?%>
-            <span class="text-primary">New</span> - 
+            <span class="text-primary">New</span> -
           <%elsif gg.updated_at > current_user.previously_seen_at%>
-            <span class="text-primary">New</span> - 
+            <span class="text-primary">New</span> -
           <%end%>
           <%=gg.name%>
         </h4>
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <%if current_user.camp_admin?%>
+  <%if current_user.camp_admin? || current_user.master_admin?%>
     <div class="card-footer text-right">
       <%= link_to "Edit Group & #{'Activity'.pluralize(gg.activities.count)}", edit_guest_group_path(gg), class: "btn btn-sm btn-primary text-white" %>
       <%= link_to "Delete Group & #{'Activity'.pluralize(gg.activities.count)}", gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger text-white" %>
