@@ -20,7 +20,7 @@
             <%end%>
           <%end%>
         </p>
-        <% if current_user.camp_admin? %>
+        <% if !current_user.user? && current_user.camp == @camp%>
           <%= link_to 'New Guest Group', new_guest_group_path, class: "btn btn-success btn-sm btn-block text-white"%>
           <button class="btn btn-primary btn-sm btn-block" onclick="$('#invite-field').show()">Invite Staff Member</button>
           <div class="form-group mt-3" id="invite-field" style="display: none;">
