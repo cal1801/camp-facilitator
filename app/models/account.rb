@@ -22,11 +22,6 @@ class Account < ApplicationRecord
         activities = this_account.user.activities.where("day >= ? AND day <= ?", Date.today().beginning_of_week, (Date.today()+8).end_of_week)
         unless activities.empty?
           WorkNotifierMailer.send_work_email(this_account, activities).deliver!
-
-          unless this_account.carrier.nil?
-            #mail = Mail.new(from, subject, to, content)
-            #new_response = sg.client.mail._('send').post(request_body: mail.to_json)
-          end
         end
       end
     end
