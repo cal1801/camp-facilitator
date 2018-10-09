@@ -35,7 +35,7 @@ class WorkNotifierMailer < ApplicationMailer
     @activity = activity
     @account = user.account
     @method = method
-    camp_admin = @activity.guest_group.camp.users.select{|u| u.camp_admin?}.first
+    camp_admin = @activity.guest_group.camp.users.select{|u| u.camp_admin? || u.master_admin?}.first
     unless user == camp_admin || user.camp_admin?
       mail(
         :to => camp_admin.email,
