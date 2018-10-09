@@ -10,7 +10,9 @@
       <%if @activity.users.count == @activity.staff_needed%>
         WAAA HOOO!!! All slots have been filled for this activity!!
       <%else%>
-        There are still <%=@activity.staff_needed - @activity.users.count%> needed for this activity
+        There <%="is".pluralize(@activity.users.count)%>
+        <%=@activity.staff_needed - @activity.users.count%>
+        <%="spot".pluralize(@activity.users.count)%> still needed for this activity
       <%end%>
     </p>
   </body>
