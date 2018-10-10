@@ -43,4 +43,11 @@ class WorkNotifierMailer < ApplicationMailer
       )
     end
   end
+
+  def ran_scheduled_job
+    mail(
+      :to => User.where(role: "master_admin").map(&:email),
+      :subject => "Ran Scheduler at #{DateTime.now.strftime("%m/%d/%Y at %I:%M%p %Z (%z)")}"
+    )
+  end
 end

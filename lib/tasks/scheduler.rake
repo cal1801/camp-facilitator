@@ -13,4 +13,6 @@ task :send_reminders => :environment do
   puts "Sending out 1 week reminders."
   Account.send_week_work_emails
   puts "Sent"
+
+  WorkNotifierMailer.ran_scheduled_job.deliver!
 end
