@@ -1,7 +1,7 @@
 class GuestGroup < ApplicationRecord
   #name, description, arrives, leaves
   validates :name, :arrives, :leaves, presence: true
-  validate :dates_correct?
+  #validate :dates_correct?
 
   default_scope {where("leaves >= ?", Date.today())}
 
