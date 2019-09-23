@@ -30,9 +30,9 @@
             <%end%>
           </div>
           <%if params['past'] != 'true'%>
-            <%= link_to 'View Past Groups', root_path(past: true), class: "btn btn-secondary btn-sm btn-block mt-2"%>
+            <%= link_to 'View Past Groups', root_path(past: true), class: "btn btn-secondary text-white btn-sm btn-block mt-2"%>
           <%else%>
-            <%= link_to 'View Upcoming Groups', root_path, class: "btn btn-secondary btn-sm btn-block mt-2"%>
+            <%= link_to 'View Upcoming Groups', root_path, class: "btn btn-secondary text-white btn-sm btn-block mt-2"%>
           <%end%>
         <%else%>
           <%= link_to 'View Upcoming Groups', root_path, class: "btn btn-primary btn-sm btn-block mt-2 text-white"%>
