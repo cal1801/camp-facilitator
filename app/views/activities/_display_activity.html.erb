@@ -9,13 +9,13 @@
           <div class="text-muted mt-2" style="font-size: .9em; margin-bottom: -5px">When</div>
           <%=activity.day.strftime("%a, %b %e") unless activity.day.nil?%> <%=activity.start.strftime("%l:%M")%> - <%=activity.end.strftime("%l:%M %P")%>
 
-          <%if current_user.camp_admin?%>
+          <%if current_user.camp_admin? || current_user.master_admin?%>
             <div class="text-muted mt-2" style="font-size: .9em; margin-bottom: -5px">Total Staff needed</div>
             <%=activity.staff_needed%>
           <%end%>
         </div>
         <div class="col">
-          <%if current_user.camp_admin?%>
+          <%if current_user.camp_admin? || current_user.master_admin?%>
             <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
             <%activity.users.each do |user|%>
               <div class="mt-2" id="activity_<%=activity.id%>_user_<%=user.id%>">
