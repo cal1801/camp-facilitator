@@ -29,7 +29,7 @@
             <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Total Staff needed</div>
             <%=activity.staff_needed%><br />
 
-            <div class="text-muted mt-2" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
+            <div class="text-muted mt-2" style="font-size: .9em; margin-bottom: -5px">Staff <%=params['past'] != 'true' ? "working" : "worked"%></div>
             <div id="activity-<%=activity.id%>-workers">
               <%=render "activities/working_names", activity: activity%>
             </div>
@@ -38,7 +38,9 @@
       </div>
     </div>
     <div class="col-md-3 d-flex flex-column justify-content-center" id="activity-<%=activity.id%>">
-      <%=render "activities/working_choices", activity: activity%>
+      <%unless params['past'] == 'true'%>
+        <%=render "activities/working_choices", activity: activity%>
+      <%end%>
     </div>
   </div>
 </div>
