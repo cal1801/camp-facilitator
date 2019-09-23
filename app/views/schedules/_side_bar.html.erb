@@ -29,7 +29,11 @@
               <%=submit_tag "Send Invite", class: "btn btn-primary btn-sm btn-block mt-1"%>
             <%end%>
           </div>
-          <button class="btn btn-secondary btn-sm btn-block mt-2">See Past Groups</button>
+          <%if params['past'] != 'true'%>
+            <%= link_to 'View Past Groups', root_path(past: true), class: "btn btn-secondary btn-sm btn-block mt-2"%>
+          <%else%>
+            <%= link_to 'View Upcoming Groups', root_path, class: "btn btn-secondary btn-sm btn-block mt-2"%>
+          <%end%>
         <%else%>
           <%= link_to 'View Upcoming Groups', root_path, class: "btn btn-primary btn-sm btn-block mt-2 text-white"%>
           <%= link_to 'View Work Schedule', schedules_your_work_schedule_path, class: "btn btn-primary btn-sm btn-block mt-2 text-white"%>

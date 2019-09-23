@@ -28,7 +28,11 @@ class SchedulesController < ApplicationController
   def set_variables
     @camp_accounts = @camp.accounts
     @camp_pending_accounts = @camp.users.select{|u| u.account.nil?}
-    @guest_groups = @camp.guest_groups.order(:arrives)
+    if params['past'] != 'true'
+      @guest_groups = @camp.guest_groups.where('arrives >= ?', Date.today().beginning_of_week).order(:arrives)
+    else
+      @guest_groups = @camp.guest_groups.where('arrives < ?', Date.today().beginning_of_week).order(:arrives)
+    end
   end
 
   def set_last_seen_at
