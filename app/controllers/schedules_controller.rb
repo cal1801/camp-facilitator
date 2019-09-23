@@ -6,7 +6,7 @@ class SchedulesController < ApplicationController
   end
 
   def your_work_schedule
-    @activities_by_week = current_user.activities.order(:day, :start).group_by{ |a| a.day.beginning_of_week }
+    @activities_by_week = current_user.activities.upcoming.order(:day, :start).group_by{ |a| a.day.beginning_of_week }
   end
 
   private
@@ -29,9 +29,9 @@ class SchedulesController < ApplicationController
     @camp_accounts = @camp.accounts
     @camp_pending_accounts = @camp.users.select{|u| u.account.nil?}
     if params['past'] != 'true'
-      @guest_groups = @camp.guest_groups.where('arrives >= ?', Date.today().beginning_of_week).order(:arrives)
+      @guest_groups = @camp.guest_groups.upcoming.order(:arrives)
     else
-      @guest_groups = @camp.guest_groups.where('arrives < ?', Date.today().beginning_of_week).order(:arrives)
+      @guest_groups = @camp.guest_groups.past.order(:arrives)
     end
   end
 

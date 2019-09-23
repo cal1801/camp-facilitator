@@ -8,6 +8,10 @@ class Activity < ApplicationRecord
   has_and_belongs_to_many :users
   before_destroy { users.clear }
 
+  scope :upcoming, -> { where("day >= ?", Date.today())}
+  scope :past, -> { where("day < ?", Date.today())}
+
+
   def day_in_guest_group?
     group = self.guest_group
     unless (group.arrives..group.leaves).include?(day)
