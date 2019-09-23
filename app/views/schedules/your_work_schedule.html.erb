@@ -30,7 +30,7 @@
                       <%=activity.day.strftime("%a, %b %e")%> <%=activity.start.strftime("%l:%M")%> - <%=activity.end.strftime("%l:%M %P")%>
                     </div>
                     <div class="col">
-                      <%=activity.guest_group.name%>
+                      <%=activity.guest_group.try(&:name)%>
                     </div>
                     <div class="col">
                       <%=render "activities/working_choices", activity: activity%>
