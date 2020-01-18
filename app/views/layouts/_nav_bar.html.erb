@@ -1,7 +1,11 @@
 <%unless current_user.nil?%>
   <nav class="navbar navbar-light bg-light"><%#=link_to 'Edit Camp', edit_camp_path(@camp), class: "btn btn-info btn-sm btn-block ml-0 mb-3 text-white" if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
-    <%= link_to "#{current_user.camp.name} <i class='fas fa-pencil-alt' style='display: none;'></i>".html_safe, edit_camp_path(@camp), class: "navbar-brand btn btn-link"  if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
-    <div class="btn-group">
+    <%if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
+      <%= link_to "#{current_user.camp.name} <i class='fas fa-pencil-alt' style='display: none;'></i>".html_safe, edit_camp_path(@camp), class: "navbar-brand btn btn-link"  if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
+    <%else%>
+      <div class='navbar-brand'><%=current_user.camp.name%></div>
+    <%end%>
+    <div class="btn-group text-right">
       <button type="button" class="btn btn-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-user-circle fa-2x mr-1"></i> <%=current_user.account.nil? ? current_user.email : current_user.account.first_name%>
       </button>
