@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       post 'send_invite'
       post 'remove_account_from_camp'
     end
+    member do
+      get 'camp_staff'
+    end
   end
   resources :accounts, except: [:show, :index]
   devise_for :users, :controllers => { :invitations => 'users/invitations' }

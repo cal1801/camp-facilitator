@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <%= stylesheet_link_tag    'application', 'jquery-ui' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', 'all' %>
     <!--Bootstrap Integration-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" integrity="sha256-CNwnGWPO03a1kOlAsGaH5g8P3dFaqFqqGFV/1nkX5OU=" crossorigin="anonymous" />
@@ -16,17 +16,45 @@
   </head>
 
   <body>
-    <%=render "layouts/nav_bar" unless ["sessions", "registrations", "passwords"].include?(controller_name)%>
-    <div class="cal alert alert-info" id="info" role="alert" style="display: <%= notice ? 'block' : 'none'%>"><%= notice %></div>
-    <div class="cal alert alert-danger" id="alert" role="alert" style="display: <%= alert ? 'block' : 'none'%>"><%= alert %></div>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <%if current_user.blank?%>
+      <div class="row m-3">
+        <div class="col">
+          <%= yield %>
+        </div>
+      </div>
+    <%else%>
+      <div class="row mx-0">
+        <div class="col-lg-2 col-md-3" style="background: rgba(18, 28, 71, 1); height: 100vh; position: sticky; top: 0">
+          <div class="row">
+            <div class="col text-center pt-2">
+              <%=image_tag "camp scheduler logo", style: 'width: 100%'%>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <%if current_user%>
+                <%=render 'layouts/sidebar_options'%>
+              <%end%>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-10 col-md-9 px-0">
+          <%=render "layouts/nav_bar" unless ["sessions", "registrations", "passwords"].include?(controller_name)%>
+          <div class="cal alert alert-info" id="info" role="alert" style="display: <%= notice ? 'block' : 'none'%>"><%= notice %></div>
+          <div class="cal alert alert-danger" id="alert" role="alert" style="display: <%= alert ? 'block' : 'none'%>"><%= alert %></div>
+          <div class="row m-3">
+            <div class="col">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
     <!--Bootstrap Integration-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <%= javascript_include_tag 'jquery.mask' %>
+    <%#= javascript_include_tag 'jquery.mask' %>
 
     <script>
       if($("#info, #alert").length) {

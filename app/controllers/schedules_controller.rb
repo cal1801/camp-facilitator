@@ -25,16 +25,6 @@ class SchedulesController < ApplicationController
 
   end
 
-  def set_variables
-    @camp_accounts = @camp.accounts
-    @camp_pending_accounts = @camp.users.select{|u| u.account.nil?}
-    if params['past'] != 'true'
-      @guest_groups = @camp.guest_groups.upcoming.order(:arrives)
-    else
-      @guest_groups = @camp.guest_groups.past.order(:arrives)
-    end
-  end
-
   def set_last_seen_at
     current_user.update_column(:previously_seen_at, current_user.last_seen_at)
     current_user.update_column(:last_seen_at, Time.now)

@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3 gg_card">
   <div class="card-body">
     <div class="row justify-content-between">
       <div class="col-auto d-flex">
@@ -8,7 +8,7 @@
           <%elsif gg.updated_at > current_user.previously_seen_at%>
             <span class="text-primary">New</span> -
           <%end%>
-          <%=gg.name%>
+          <span class="gg_name"><%=gg.name%></span>
         </h4>
       </div>
       <div class="col-auto">

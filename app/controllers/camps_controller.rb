@@ -1,7 +1,8 @@
 class CampsController < ApplicationController
-  before_action :set_camp, only: [:show, :edit, :update, :destroy]
+  before_action :set_camp, only: [:show, :edit, :update, :destroy, :camp_staff]
   before_action :check_master_admin, only: [:create, :new, :destroy]
   before_action :check_camp_admin, only: [:edit, :update]
+  before_action :set_variables, only: [:edit, :camp_staff, :index]
 
   # GET /camps
   # GET /camps.json
@@ -93,6 +94,9 @@ class CampsController < ApplicationController
         format.js { flash.now[:alert] = "There has been an error, please try again" }
       end
     end
+  end
+
+  def camp_staff
   end
 
   private

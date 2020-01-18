@@ -1,5 +1,7 @@
 class GuestGroupsController < ApplicationController
   before_action :set_guest_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_variables, only: [:new, :edit]
+
 
   # GET /guest_groups
   # GET /guest_groups.json

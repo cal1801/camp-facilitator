@@ -12,11 +12,10 @@
     }, 4000)
   })
 <%end%>
+$("#invite_email").val("")
 <%accounts = current_user.camp.accounts%>
 <%pending = current_user.camp.users.select{|u| u.account.nil?}%>
-$("#camp-staff").html("<%= escape_javascript render 'camps/display_staff', accounts: accounts, pending: pending %>")
-<%if pending.empty?%>
-  $("pending-title").hide();
-<%else%>
-  $("pending.title").show();
+$("#pending-staff").html("")
+<%unless pending.empty?%>
+  $("#pending-staff").html("<%= escape_javascript render 'display_pending_staff', pending: pending %>")
 <%end%>

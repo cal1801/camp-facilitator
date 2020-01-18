@@ -1,0 +1,19 @@
+<div class="col">
+  <div class="card">
+    <div class="card-header">
+      Pending Staff Members Invites
+    </div>
+    <table class='table'>
+      <%pending.each do |staff|%>
+        <tr>
+          <td><%=staff.email%></td>
+          <td>
+            <%= link_to remove_account_from_camp_camps_path(user: staff), method: :post, class: 'btn btn-xs btn-danger text-white', :remote => true do %>
+              Cancel Invite
+            <%end%>
+          </td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+</div>

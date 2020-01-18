@@ -14,3 +14,14 @@
 //= require activestorage
 //= require_tree .
 //= require cocoon
+
+$(document).ready(function() {
+  $('.navbar-brand').hover(
+    function () {
+      $('.navbar-brand .fa-pencil-alt').show();
+    }, 
+    function () {
+      $('.navbar-brand .fa-pencil-alt').hide();
+    }
+  )
+})

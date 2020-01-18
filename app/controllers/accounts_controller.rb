@@ -2,6 +2,7 @@ class AccountsController < ApplicationController
   before_action :set_account, :check_permissions, only: [:show, :edit, :update, :destroy]
   before_action :set_carrier_param, only: [:create, :update]
   before_action :check_admin, only: [:index]
+  before_action :set_variables, only: [:edit]
 
   # GET /accounts
   # GET /accounts.json

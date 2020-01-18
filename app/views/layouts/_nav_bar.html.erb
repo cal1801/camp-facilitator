@@ -1,20 +1,9 @@
 <%unless current_user.nil?%>
-  <nav class="navbar navbar-light bg-light">
-    <%= link_to "#{current_user.camp.name} Schedule", root_path, class: "navbar-brand btn btn-link"%>
-    <%if current_user.master_admin?%>
-      <div class="dropdown mr-auto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Camps
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <%=link_to "View Camps", camps_path, class: "dropdown-item"%>
-          <%=link_to "Add New Camp", new_camp_path, class: "nav-link btn btn-link"%>
-        </div>
-      </div>
-    <%end%>
+  <nav class="navbar navbar-light bg-light"><%#=link_to 'Edit Camp', edit_camp_path(@camp), class: "btn btn-info btn-sm btn-block ml-0 mb-3 text-white" if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
+    <%= link_to "#{current_user.camp.name} <i class='fas fa-pencil-alt' style='display: none;'></i>".html_safe, edit_camp_path(@camp), class: "navbar-brand btn btn-link"  if (current_user.camp_admin? && current_user.camp == @camp) || current_user.master_admin?%>
     <div class="btn-group">
-      <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%=current_user.account.nil? ? current_user.email : current_user.account.first_name%>
+      <button type="button" class="btn btn-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-circle fa-2x mr-1"></i> <%=current_user.account.nil? ? current_user.email : current_user.account.first_name%>
       </button>
       <div class="dropdown-menu dropdown-menu-right" style=" right: 0;left: auto;">
         <%= link_to 'Edit Account', edit_account_path(current_user.account), class: "btn btn-link btn-block text-right" unless current_user.account.nil?%>
