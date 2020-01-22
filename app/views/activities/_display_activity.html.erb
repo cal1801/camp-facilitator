@@ -19,7 +19,7 @@
             <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
             <%activity.users.each do |user|%>
               <div class="mt-2" id="activity_<%=activity.id%>_user_<%=user.id%>">
-                <%=user.account.full_name%>
+                <%=user.account.name_with_initial%>
                 <%= link_to remove_worker_activity_path(activity.id, user: user.id), method: :post, class: 'btn btn-xs btn-danger text-white ml-2', :remote => true do %>
                   Un-schedule
                 <% end %>

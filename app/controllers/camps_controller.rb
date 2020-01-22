@@ -1,5 +1,5 @@
 class CampsController < ApplicationController
-  before_action :set_camp, only: [:show, :edit, :update, :destroy, :camp_staff]
+  before_action :set_camp, only: [:show, :edit, :update, :destroy, :camp_staff, :reporting, :get_report_data]
   before_action :check_master_admin, only: [:create, :new, :destroy]
   before_action :check_camp_admin, only: [:edit, :update]
   before_action :set_variables, only: [:edit, :camp_staff, :index]
@@ -89,7 +89,7 @@ class CampsController < ApplicationController
     user.activities.clear
     respond_to do |format|
       if user.delete
-        format.js { flash.now[:notice] = "Removed #{defined?(@account) ? @account.full_name : user.email} from camp's staff list" }
+        format.js { flash.now[:notice] = "Removed #{defined?(@account) ? @account.name_with_initial : user.email} from camp's staff list" }
       else
         format.js { flash.now[:alert] = "There has been an error, please try again" }
       end
@@ -97,6 +97,20 @@ class CampsController < ApplicationController
   end
 
   def camp_staff
+  end
+
+  def reporting
+    @all_staff_members = @camp.accounts
+    @all_guest_groups = @camp.guest_groups
+  end
+
+  def get_report_data
+    activities = Activity.joins(guest_group: :camp).where("camps.id = ? AND day >= ? and day <= ?", @camp.id, params[:report_start], params[:report_ends])
+    users = activities.map(&:users).flatten.uniq
+    @activity_users = {}
+    users.each do |user|
+      @activity_users[user] = activities.select{|a| a.users.include? user}
+    end
   end
 
   private

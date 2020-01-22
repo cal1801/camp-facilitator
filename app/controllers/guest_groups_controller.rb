@@ -1,6 +1,6 @@
 class GuestGroupsController < ApplicationController
   before_action :set_guest_group, only: [:show, :edit, :update, :destroy]
-  before_action :set_variables, only: [:new, :edit]
+  before_action :set_variables, only: [:new, :edit, :show]
 
 
   # GET /guest_groups
@@ -11,8 +11,8 @@ class GuestGroupsController < ApplicationController
 
   # GET /guest_groups/1
   # GET /guest_groups/1.json
-  #def show
-  #end
+  def show
+  end
 
   # GET /guest_groups/new
   def new

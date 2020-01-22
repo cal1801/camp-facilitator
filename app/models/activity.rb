@@ -24,4 +24,22 @@ class Activity < ApplicationRecord
       errors.add(:end, "Ending time must be after starting time")
     end
   end
+
+  def self.time_diff(seconds_diff)
+    #we are passing this in now
+    #seconds_diff = (start_time - end_time).to_i.abs
+  
+    hours = seconds_diff / 3600
+    seconds_diff -= hours * 3600
+  
+    minutes = seconds_diff / 60
+    seconds_diff -= minutes * 60
+  
+    seconds = seconds_diff
+  
+    '%01d:%02d' % [hours, minutes]
+    #"#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}"
+    # or, as hagello suggested in the comments:
+    # '%02d:%02d:%02d' % [hours, minutes, seconds]
+  end
 end

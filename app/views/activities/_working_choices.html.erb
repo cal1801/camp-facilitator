@@ -7,6 +7,8 @@
   <%if activity.users.map(&:id).include?(current_user.id)%>
     <%if ((Date.today)..(2.weeks.since)).include?(activity.day)%>
       <strong>Within 2 weeks.</strong> Please contat the office if you need to change your work schedule.
+    <%elsif activity.day < Date.today%>
+      <strong>Activity has already happened</strong>
     <%else%>
       <%= link_to remove_worker_activity_path(activity.id), method: :post, class: 'btn btn-sm btn-danger', :remote => true do %>
         Dont Work It

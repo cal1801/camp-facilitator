@@ -3,5 +3,5 @@
     No one yet, be the first!
   <%end%>
 <%else%>
-  <%=activity.users.map(&:account).flatten.map(&:full_name).map{|name| name == current_user.account.full_name ? "You" : name}.join(", ")%>
+  <%=activity.users.map(&:account).flatten.map(&:name_with_initial).map{|name| name == current_user.account.name_with_initial ? "You" : name}.join(", ")%>
 <%end%>

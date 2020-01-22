@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <%= form_with url: get_report_data_camps_path, remote: true do |form| %>
+          <div class="row d-print-none">
+            <div class="col">
+              Select date for report to start: <%= form.date_field :report_start, value: Date.today(), class: "form-control" %>
+            </div>
+            <div class="col">
+              Select date for report to end: <%= form.date_field :report_ends, value: Date.today() - 7.days, class: "form-control" %>
+            </div>
+            <div class="col-auto">
+              <%= form.submit 'Run Report', class:'btn btn-success mt-4'%>
+            </div>
+            <%=hidden_field_tag 'id', @camp.id%>
+          </div>
+        <% end %>
+        <div class='row mt-5 d-none d-print-block'>
+          <div class='col'>
+            <h2>Hours Worked Report | <span id='report-start'></span> - <span id='report-end'></span></h2>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col" id="report_display">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  updatePrintInfo()
+
+  $('#report_start, #report_ends').change(function() {
+    updatePrintInfo()
+  });
+
+  function updatePrintInfo() {
+    $("#report-start").html($('#report_start').val().split("-").reverse().join("/"))
+    $("#report-end").html($('#report_ends').val().split("-").reverse().join("/"))
+  }
+</script>

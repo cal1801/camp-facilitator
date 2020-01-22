@@ -20,7 +20,7 @@
           <tr id="<%=staff.id.to_s%>_staff_listing">
             <td><%=staff.full_name%></td>
             <td><%=mail_to staff.user.email, "<i class='fas fa-envelope'></i> #{staff.user.email}".html_safe, class: 'btn btn-link btn-xs'%></td>
-            <td><%=link_to "<i class='fas fa-phone-alt'></i> #{staff.phone_number}".html_safe, "tel:#{staff.phone_number}", class: 'btn btn-link btn-xs'%></td>
+            <td><%=link_to "<i class='fas fa-phone-alt'></i> #{staff.phone_number}".html_safe, "tel:#{staff.phone_number}", class: 'btn btn-link btn-xs' unless staff.phone_number.blank?%></td>
             <td>
               <%= link_to remove_account_from_camp_camps_path(account: staff), method: :post, class: 'btn btn-xs btn-danger text-white mb-1', :remote => true do %>
                 Remove

@@ -11,8 +11,12 @@ class Account < ApplicationRecord
                  #"Republic Wireless", "Google Fi", "U.S. Cellular", "Ting",
                  #"Consumer Cellular", "C-Spire", "Page Plus"]
 
-  def full_name
+  def name_with_initial
     "#{self.first_name} #{self.last_name[0]}."
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
   end
 
   def self.send_week_work_emails
@@ -22,7 +26,7 @@ class Account < ApplicationRecord
       unless this_account.user.activities.empty? || this_account.user.nil?
         activities = this_account.user.activities.where("day = ?", Date.today()+7)
         unless activities.empty?
-          puts "Sending #{activities.count} to #{this_account.full_name}"
+          puts "Sending #{activities.count} to #{this_account.name_with_initial}"
           WorkNotifierMailer.send_work_email(this_account, activities, "week").deliver!
         end
       end
@@ -36,7 +40,7 @@ class Account < ApplicationRecord
       unless this_account.user.activities.empty? || this_account.user.nil?
         activities = this_account.user.activities.where("day = ?", Date.today()+1)
         unless activities.empty?
-          puts "Sending #{activities.count} to #{this_account.full_name}"
+          puts "Sending #{activities.count} to #{this_account.name_with_initial}"
           WorkNotifierMailer.send_work_email(this_account, activities, "day").deliver!
           
           message = "Work Reminder for Tomorrow \n"
