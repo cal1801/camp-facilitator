@@ -1,11 +1,11 @@
-<div class="row justify-content-center align-items-center" style="height: 100vh">
+<div class="row justify-content-center align-items-center mx-auto" id='login-box' style="height: 100vh">
   <div class="col-12">
     <div class='row'>
       <div class='col mx-auto text-center'>
-        <%=image_tag "camp scheduler logo", style: 'width: 24em'%>
+        <%=image_tag "camp scheduler logo", style: 'width: 100%'%>
       </div>
     </div>
-    <div class="card mx-auto" style="width: 24em">
+    <div class="card mx-auto" >
       <div class="card-body">
         <h5 class="card-title">Log in</h5>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

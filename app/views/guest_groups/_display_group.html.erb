@@ -42,8 +42,14 @@
   </div>
   <%if current_user.camp_admin? || current_user.master_admin?%>
     <div class="card-footer text-right">
-      <%= link_to "Edit Group & #{'Activity'.pluralize(gg.activities.count)}", edit_guest_group_path(gg), class: "btn btn-sm btn-primary text-white" %>
-      <%= link_to "Delete Group & #{'Activity'.pluralize(gg.activities.count)}", gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger text-white" %>
+      <div class='row justify-content-end'>
+        <div class='col-6 col-md-auto'>
+          <%= link_to "Edit Group", edit_guest_group_path(gg), class: "btn btn-sm btn-block btn-primary text-white" %>
+        </div>
+        <div class='col-6 col-md-auto'>
+          <%= link_to "Delete Group", gg, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-block btn-danger text-white" %>
+        </div>
+      </div> 
     </div>
   <%end%>
 </div>

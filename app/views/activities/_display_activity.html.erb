@@ -1,8 +1,8 @@
 <div class="mb-3 border border-info rounded p-3">
   <div class="row">
-    <div class="col-md-9">
+    <div class="col col-md-9">
       <div class="row mb-1">
-        <div class="col">
+        <div class="col-md">
           <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Activity</div>
           <%=activity.name%><br />
 
@@ -14,7 +14,7 @@
             <%=activity.staff_needed%>
           <%end%>
         </div>
-        <div class="col">
+        <div class="col-md">
           <%if current_user.camp_admin? || current_user.master_admin?%>
             <div class="text-muted" style="font-size: .9em; margin-bottom: -5px">Staff working</div>
             <%activity.users.each do |user|%>

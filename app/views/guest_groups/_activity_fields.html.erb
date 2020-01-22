@@ -2,30 +2,30 @@
   <div class="card-body">
     <div class="row">
       <%= f.hidden_field :id %>
-      <div class="col-8 form-group field">
+      <div class="col-lg-8 form-group field">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control" %>
       </div>
-      <div class="col-4 form-group field">
+      <div class="col-lg-4 form-group field">
         <%= f.label :staff_needed, "Number Staff Needed" %>
         <%= f.number_field :staff_needed, class: "form-control" %>
       </div>
     </div>
     <div class="row">
-      <div class="col-6 form-group field">
+      <div class="col-lg-6 form-group field">
         <%= f.label :day %>
         <div class="d-flex form-group field">
           <%min_date = (f.object.day.nil? ? Date.today : f.object.day)%>
           <%= f.date_field :day, min: min_date, default: Date.today(), class: "form-control" %>
         </div>
       </div>
-      <div class="col">
+      <div class="col-lg">
         <%= f.label :start %><br />
         <div class="d-flex form-group field">
           <%= f.time_select :start, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
         </div>
       </div>
-      <div class="col">
+      <div class="col-lg">
         <%= f.label :end %>
         <div class="d-flex form-group field">
           <%= f.time_select :end, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>

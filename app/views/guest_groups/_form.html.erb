@@ -1,8 +1,28 @@
 <%= render "layouts/error_display", errors: guest_group.errors%>
 
 <%= form_with(model: guest_group, local: true) do |form| %>
+  <div class="row py-3 d-md-none" style='position: sticky; top: 78px; z-index: 10; background: rgba(18, 28, 71, 1); margin: -30px; margin-right: -30px; margin-top: -15px;'>
+    <div class="col-6">
+      <%= form.submit "Save All", class: "btn btn-block btn-success" %>
+    </div>
+    <div class="col-6">
+      <%= link_to 'Cancel', root_path, class: "btn btn-danger btn-block text-white" %>
+    </div>
+  </div>
+
+  <div class="d-md-none mt-5"></div>
+
+  <div class='row align-items-center'>
+    <div class='col-auto'>
+      <h1><%=params[:action].titleize%> Guest Group</h1>
+    </div>
+    <div class='col-auto'>
+      <%= link_to 'Back to All Groups', root_path, class: 'btn btn-primary text-white'%>
+    </div>
+  </div>
+
   <div class="row">
-    <div class="col-3">
+    <div class="col-lg-3">
       <div class="row">
         <div class="col-12">
           <h5>Group Info</h5>
@@ -20,17 +40,19 @@
           </div>
           <div class="form-group">
             <%= form.label :arrives %><br />
-            <%= form.date_field :arrives, min: Date.today, default: Date.today(), class: "form-control" %>
+            <%= form.date_field :arrives, default: Date.today(), class: "form-control" %>
+            <%#= form.date_field :arrives, min: form.object.arrives.blank? ? Date.today : nil, default: Date.today(), class: "form-control" %>
           </div>
           <div class="form-group">
             <%= form.label :leaves %>
-            <%= form.date_field :leaves, min: Date.today, default: Date.today()+1, class: "form-control" %>
+            <%= form.date_field :leaves, default: Date.today()+1, class: "form-control" %>
+            <%#= form.date_field :leaves, min: form.object.leaves.blank? ? Date.today : nil, default: Date.today()+1, class: "form-control" %>
           </div>
           <%=form.hidden_field :camp_id, value: current_user.camp_id%>
         </div>
       </div>
     </div>
-    <div class="col-9">
+    <div class="col-lg-9">
       <div class="row">
         <div class="col-12">
           <h5>Programs</h5>
@@ -48,7 +70,7 @@
   </div>
 
   <div class="row">
-    <div class="col-12 text-right">
+    <div class="col-12 text-right d-none d-md-block">
       <%= form.submit "Save Group and Activities", class: "btn btn-success" %>
       <%= link_to 'Cancel', root_path, class: "btn btn-danger text-white" %>
     </div>
