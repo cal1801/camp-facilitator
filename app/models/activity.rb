@@ -14,8 +14,8 @@ class Activity < ApplicationRecord
 
   def day_in_guest_group?
     group = self.guest_group
-    unless (group.arrives..group.leaves).include?(day)
-      errors.add(:day, "Day needs to be inbetween group's arriving and leaving date")
+    unless day < group.arrives || day > group.leaves #(group.arrives..group.leaves).include?(day)
+      errors.add(:day, "needs to be inbetween group's arriving and leaving date")
     end
   end
 
