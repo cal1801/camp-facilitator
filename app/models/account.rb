@@ -28,6 +28,13 @@ class Account < ApplicationRecord
         unless activities.empty?
           puts "Sending #{activities.count} to #{this_account.name_with_initial}"
           WorkNotifierMailer.send_work_email(this_account, activities, "week").deliver!
+
+          message = "Work Reminder for this week \n"
+          activities.each do |activity|
+            message += "#{activity.day.strftime('%b %d')} #{activity.start.strftime('%l:%M')} - #{activity.end.strftime('%l:%M%P')} - #{activity.name} \n"
+          end
+
+          Twilio::SMS.send_sms(message, "+1#{this_account.phone_number.gsub(/\D/, '')}") unless this_account.phone_number.blank?
         end
       end
     end
@@ -47,7 +54,8 @@ class Account < ApplicationRecord
           activities.each do |activity|
             message += "#{activity.day.strftime('%b %d')} #{activity.start.strftime('%l:%M')} - #{activity.end.strftime('%l:%M%P')} - #{activity.name} \n"
           end
-          Twilio::SMS.send_sms(message, "+1#{this_account.phone_number.gsub(/\D/, '')}")
+
+          Twilio::SMS.send_sms(message, "+1#{this_account.phone_number.gsub(/\D/, '')}") unless this_account.phone_number.blank?
         end
       end
     end

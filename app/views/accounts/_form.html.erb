@@ -27,6 +27,10 @@
           <%= form.label :phone_number %>
           <%= form.text_field :phone_number, class: "form-control" %>
         </div>
+        <div class="form-group col">
+          <label>Email (not editable)</label><br />
+          <span class='form-control'><%= account.user.email %></span>
+        </div>
         <!--<div class="form-group col">
           <%#= form.label :carrier %>
           <%#= form.select :carrier, options_from_collection_for_select(Account.carriers, :last, :first, Account.carriers[account.carrier]), {include_blank: "Please select your cell phone carrier"}, class: "form-control" %>
