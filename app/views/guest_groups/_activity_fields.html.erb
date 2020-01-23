@@ -16,7 +16,7 @@
         <%= f.label :day %>
         <div class="d-flex form-group field">
           <%min_date = (f.object.day.nil? ? Date.today : f.object.day)%>
-          <%= f.date_field :day, min: min_date, default: Date.today(), class: "form-control" %>
+          <%= f.date_field :day, default: Date.today(), class: "form-control" %>
         </div>
       </div>
       <div class="col-lg">
