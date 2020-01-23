@@ -2,7 +2,7 @@ class CampsController < ApplicationController
   before_action :set_camp, only: [:show, :edit, :update, :destroy, :camp_staff, :reporting, :get_report_data]
   before_action :check_master_admin, only: [:create, :new, :destroy]
   before_action :check_camp_admin, only: [:edit, :update]
-  before_action :set_variables, only: [:edit, :camp_staff, :index]
+  before_action :set_variables, only: [:edit, :camp_staff, :index, :new]
 
   # GET /camps
   # GET /camps.json
@@ -17,7 +17,7 @@ class CampsController < ApplicationController
 
   # GET /camps/new
   def new
-    @camp = Camp.new
+    @new_camp = Camp.new
   end
 
   # GET /camps/1/edit
