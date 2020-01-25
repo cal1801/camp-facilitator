@@ -20,7 +20,7 @@
                 <div class='col'><%=activity.name%></div>
                 <div class='col'><%= link_to activity.guest_group.name, guest_group_path(activity.guest_group)%></div>
                 <%#binding.pry%>
-                <div class='col'><%=activity.start.utc.strftime('%l:%M %p')%> - <%=activity.end.utc.strftime('%l:%M %p')%></div>
+                <div class='col'><%=activity.start.strftime('%l:%M %p')%> - <%=activity.end.strftime('%l:%M %p')%></div>
                 <div class='col'><%=Activity.time_diff((activity.start - activity.end).to_i.abs)%> hours</div>
               </div>
             <%end%>
