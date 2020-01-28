@@ -2,7 +2,6 @@ class GuestGroupsController < ApplicationController
   before_action :set_guest_group, only: [:show, :edit, :update, :destroy]
   before_action :set_variables, only: [:new, :edit, :show, :update]
 
-
   # GET /guest_groups
   # GET /guest_groups.json
   #def index
@@ -26,7 +25,7 @@ class GuestGroupsController < ApplicationController
 
   # GET /guest_groups/1/edit
   def edit
-    @activities = @guest_group.activities
+    @activities = Activity.order_by_start(@guest_group.activities)
   end
 
   # POST /guest_groups
@@ -114,6 +113,6 @@ class GuestGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def guest_group_params
-      params.require(:guest_group).permit(:name, :description, :arrives, :leaves, :camp_id, activities_attributes: [:id, :name, :day, :start, :end, :staff_needed, :_destroy])
+      params.require(:guest_group).permit(:name, :description, :arrives, :leaves, :camp_id, activities_attributes: [:id, :name, :day, :start, :end_date, :end, :staff_needed, :activity_type, :_destroy])
     end
 end

@@ -59,7 +59,7 @@
         </div>
       </div>
       <div id="activities">
-        <%=form.fields_for :activities do |activity|%>
+        <%=form.fields_for :activities, @activities do |activity|%>
           <%=render "activity_fields", f: activity%>
         <%end%>
         <div class='links'>

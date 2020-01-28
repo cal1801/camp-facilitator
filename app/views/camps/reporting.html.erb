@@ -5,10 +5,10 @@
         <%= form_with url: get_report_data_camps_path, remote: true do |form| %>
           <div class="row d-print-none">
             <div class="col">
-              Select date for report to start: <%= form.date_field :report_start, value: Date.today(), class: "form-control" %>
+              Select date for report to start: <%= form.date_field :report_start, value: Date.today() - 7.days, class: "form-control" %>
             </div>
             <div class="col">
-              Select date for report to end: <%= form.date_field :report_ends, value: Date.today() - 7.days, class: "form-control" %>
+              Select date for report to end: <%= form.date_field :report_ends, value: Date.today(), class: "form-control" %>
             </div>
             <div class="col-auto">
               <%= form.submit 'Run Report', class:'btn btn-success mt-4'%>

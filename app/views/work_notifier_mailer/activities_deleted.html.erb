@@ -14,7 +14,7 @@
     <ul>
       <%@activities.each do |activity|%>
         <li>
-          <%=activity.day.strftime('%b %d')%> <%=activity.start.strftime('%l:%M')%> - <%=activity.end.strftime('%l:%M%P')%> - <%=activity.name%>
+          <%=activity.day_and_time_span%> - <%=activity.name%>
         </li>
       <%end%>
     </ul>

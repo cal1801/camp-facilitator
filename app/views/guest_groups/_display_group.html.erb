@@ -32,7 +32,7 @@
 
         <div id="collapse-gg<%=gg.id%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-gg<%=gg.id%>">
           <div class="card-body">
-            <%gg.activities.each do |activity|%>
+            <%Activity.order_by_start(gg.activities).each do |activity|%>
               <%=render "activities/display_activity", activity: activity%>
             <%end%>
           </div>

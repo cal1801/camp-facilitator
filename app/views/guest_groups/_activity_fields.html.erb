@@ -11,21 +11,38 @@
         <%= f.number_field :staff_needed, class: "form-control" %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6 form-group field">
-        <%= f.label :day %>
+    <div class='row mb-3'>
+      <div class='col-lg-auto'>
+        <%Activity.activity_types.keys.each do |activity_type|%>
+          <div class="custom-control custom-radio  custom-control-inline">
+            <%=f.radio_button :activity_type, activity_type, class: 'custom-control-input'%>
+            <%= f.label "#{:activity_type}_#{activity_type.parameterize.underscore}", activity_type.humanize.titleize, class: 'custom-control-label' %> <!--need to get this right!-->
+          </div>
+        <%end%>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-lg-auto form-group field">
+        <%= f.label :day, "Start Day" %>
         <div class="d-flex form-group field">
           <%min_date = (f.object.day.nil? ? Date.today : f.object.day)%>
           <%= f.date_field :day, default: Date.today(), class: "form-control" %>
         </div>
       </div>
-      <div class="col-lg">
+      <div class="col-lg-3 start_time" style='<%="display: none;".html_safe if f.object.activity_type == 'all_day'%>'>
         <%= f.label :start %><br />
         <div class="d-flex form-group field">
           <%= f.time_select :start, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
         </div>
       </div>
-      <div class="col-lg">
+      <div class="col-lg-auto form-group field end_date" style='<%="display: none;".html_safe if ['hourly', 'all_day'].include?(f.object.activity_type)%>'>
+        <%= f.label :end_date, "End Day" %>
+        <div class="d-flex form-group field">
+          <%min_date = (f.object.day.nil? ? Date.today : f.object.day)%>
+          <%= f.date_field :end_date, default: Date.today(), class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-lg-3 end_time" style='<%="display: none;".html_safe if f.object.activity_type == 'all_day'%>'>
         <%= f.label :end %>
         <div class="d-flex form-group field">
           <%= f.time_select :end, {minute_step: 15, ampm: true, time_separator: ""}, {class: "form-control"} %>
@@ -39,3 +56,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  jQuery("input[type='radio']").change(function() {
+    if(jQuery(this).val() == 'multi_day') {
+      jQuery(this).closest('.row').next().find('.end_date, .start_time, .end_time').show()
+    }else if(jQuery(this).val() == 'all_day'){
+      jQuery(this).closest('.row').next().find('.end_date, .start_time, .end_time').hide()
+    }else if(jQuery(this).val() == 'hourly'){
+      jQuery(this).closest('.row').next().find('.start_time, .end_time').show()
+      jQuery(this).closest('.row').next().find('.end_date').hide()
+    }
+  })
+</script>

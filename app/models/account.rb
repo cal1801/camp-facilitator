@@ -31,7 +31,7 @@ class Account < ApplicationRecord
 
           message = "Work Reminder for this week \n"
           activities.each do |activity|
-            message += "#{activity.day.strftime('%b %d')} #{activity.start.in_time_zone('Eastern Time (US & Canada)').strftime('%l:%M')} - #{activity.end.in_time_zone('Eastern Time (US & Canada)').strftime('%l:%M%P')} - #{activity.name} \n"
+            message += "#{activity.day_and_time_span} - #{activity.name} \n"
           end
 
           Twilio::SMS.send_sms(message, "+1#{this_account.phone_number.gsub(/\D/, '')}") unless this_account.phone_number.blank?
@@ -46,13 +46,14 @@ class Account < ApplicationRecord
     accounts.each do |this_account|
       unless this_account.user.activities.empty? || this_account.user.nil?
         activities = this_account.user.activities.where("day = ?", Date.today()+1)
+
         unless activities.empty?
           puts "Sending #{activities.count} to #{this_account.name_with_initial}"
           WorkNotifierMailer.send_work_email(this_account, activities, "day").deliver!
           
           message = "Work Reminder for Tomorrow \n"
           activities.each do |activity|
-            message += "#{activity.day.strftime('%b %d')} #{activity.start.in_time_zone('Eastern Time (US & Canada)').strftime('%l:%M')} - #{activity.end.in_time_zone('Eastern Time (US & Canada)').strftime('%l:%M%P')} - #{activity.name} \n"
+            message += "#{activity.day_and_time_span} - #{activity.name} \n"
           end
 
           Twilio::SMS.send_sms(message, "+1#{this_account.phone_number.gsub(/\D/, '')}") unless this_account.phone_number.blank?
