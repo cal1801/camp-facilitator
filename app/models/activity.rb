@@ -1,8 +1,8 @@
 class Activity < ApplicationRecord
   #name, day, start, end, staff_needed
   validates :name, :day, :start, :end, :staff_needed, presence: true
-  #validate :day_in_guest_group?
-  #validate :start_before_end?
+  validate :day_in_guest_group?
+  validate :start_before_end?
 
   enum activity_type: [:hourly, :all_day, :multi_day]
 
@@ -40,22 +40,25 @@ class Activity < ApplicationRecord
     if day < group.arrives.to_date || day > group.leaves.to_date #(group.arrives..group.leaves).include?(day)
       errors.add(:day, "needs to be inbetween group's arriving and leaving date")
     end
+
+    if self.activity_type == 'multi_day' && (self.end_date < group.arrives.to_date || self.end_date > group.leaves.to_date)
+      errors.add(:end_date, "needs to be inbetween group's arriving and leaving date")
+    end
   end
 
   def start_before_end?
     #gotta test depending on what the type is
     case self.activity_type
       when 'hourly'
-        if self.end < self.start
-          errors.add(:end, "Ending time must be after starting time")
+        if self.end.strftime('%T') < self.start.strftime('%T')
+          errors.add(:end, "time must be after starting time")
         end
       when 'multi_day'
-        binding.pry
         if self.day > self.end_date
-          errors.add(:end, "Ending date must be after starting date")
+          errors.add(:end_date, "must be after starting date")
         elsif self.day == self.end_date
           if self.end < self.start
-            errors.add(:end, "Ending time must be after starting time")
+            errors.add(:end, "time must be after starting time")
           end
         end
     end
