@@ -15,13 +15,16 @@
           <div class='card-body py-1'>
             <%user_total_time = 0%>
             <%activities.each do |activity|%>
-              <%user_total_time += (activity.start - activity.end).to_i.abs%>
+              <%
+                start_time = Time.new(activity.day.year, activity.day.month, activity.day.day, activity.start.hour, activity.start.min)
+                end_time = Time.new(activity.end_date.year, activity.end_date.month, activity.end_date.day, activity.end.hour, activity.end.min)
+              %>
+              <%user_total_time += (end_time - start_time).to_i.abs%>
               <div class='row'>
                 <div class='col'><%=activity.name%></div>
                 <div class='col'><%= link_to activity.guest_group.name, guest_group_path(activity.guest_group)%></div>
-                <%#binding.pry%>
-                <div class='col'><%=activity.start.strftime('%l:%M %p')%> - <%=activity.end.strftime('%l:%M %p')%></div>
-                <div class='col'><%=Activity.time_diff((activity.start - activity.end).to_i.abs)%> hours</div>
+                <div class='col'><%=activity.day_and_time_span%></div>
+                <div class='col'><%=Activity.time_diff((end_time - start_time).to_i.abs)%> hours</div>
               </div>
             <%end%>
           </div>
