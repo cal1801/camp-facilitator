@@ -1,6 +1,6 @@
 <%= render "layouts/error_display", errors: camp.errors%>
 
-<%= form_with(model: camp, local: true) do |form| %>
+<%= form_with(model: camp, local: true, id: 'camp-form') do |form| %>
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -35,6 +35,46 @@
               </div>
             <%end%>
           </div>
+
+          <%if params["action"] != "new"%>
+            <p>
+              You can use the two areas below to customize the week out and day out emails that go to staff working blocks. If you would like to 
+              customize the email by inserting the staff's name, plese use "[FirstName]" and "[LastName]" to designate those areas. If you would
+              like to specify where the information about their blocks is displayed, use "[Blocks]" to designate it. If you dont include the block
+              tag then it will automatically be displayed at the bottom of the email.
+            </p>
+          
+            <div class="row">
+              <div class="col">
+                <%= label_tag "Week Out Message" %>
+                <textarea name="camp[week_out_message]" id="camp_week_out_message">
+                  <% if camp.week_out_message.blank?%>
+                    <h3>[FirstName]</h3><br />
+                    <p>Good news, you are on the schedule in a week! Take a look below to confirm the times that we have for you to work. Please give us a call if you have any questions or need to talk about you schedule.</p><br/>
+                    [Blocks]
+                  <%else%>
+                    <%=camp.week_out_message%>
+                  <%end%>
+                </textarea>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col">
+                <%= label_tag "Day Before Message" %>
+                <textarea name="camp[day_out_message]" id="camp_day_out_message">
+                  <% if camp.day_out_message.blank?%>
+                    <h3>[FirstName]</h3><br />
+                    <p>Just a quick reminder about your work that is happening tomorrow. As always, please give us a call if there is any issues.</p><br />
+                    [Blocks]
+                  <%else%>
+                    <%=camp.day_out_message%>
+                  <%end%>
+                </textarea>
+              </div>
+            </div>
+          <%end%>
+
         </div>
         <div class="card-footer text-right">
           <%= form.submit "Save", class: "btn btn-success" %>
@@ -49,5 +89,21 @@
     $(document).ready(function(){
       $("#camp_phone_number").mask('(000) 000-0000');
     });
+
+    ClassicEditor
+      .create( document.querySelector( '#camp_day_out_message' ), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList' ],
+      } )
+      .catch( error => {
+          console.error( error );
+      } );
+    
+    ClassicEditor
+      .create( document.querySelector( '#camp_week_out_message' ), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList' ],
+      } )
+      .catch( error => {
+          console.error( error );
+      } );
   </script>
 <%end%>

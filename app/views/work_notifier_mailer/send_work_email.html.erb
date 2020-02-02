@@ -4,25 +4,17 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hey <%=@account.first_name%>!</h1>
-    <%if @time_frame == "week"%>
-      <p>
-        Good news, you are on the schedule in a week! Take a look below to
-        confirm the times that we have for you to work. Please give us a call
-        if you have any questions or need to talk about you schedule.
-      </p>
-    <%else%>
-      <p>
-        Just a quick reminder about your work that is happening tomorrow. As
-        always, please give us a call if there is any issues.
-      </p>
+    <%activities = "<ul>"%>
+    <%@activities.each do |activity|%>
+      <%activities += "<li>"%>
+        <%activities += "#{activity.day_and_time_span} - #{activity.name}"%>
+      <%activities += "</li>"%>
     <%end%>
-    <ul>
-      <%@activities.each do |activity|%>
-        <li>
-          <%=activity.day_and_time_span%> - <%=activity.name%>
-        </li>
-      <%end%>
-    </ul>
+    <%activities += "</ul>"%>
+    <%if @time_frame == "week"%>
+      <%=@camp.week_out_message.gsub("[FirstName]", @account.first_name).gsub("[LastName]",@account.last_name).gsub('[Blocks]',activities).html_safe%>
+    <%else%>
+      <%=@camp.day_out_message.gsub("[FirstName]", @account.first_name).gsub("[LastName]",@account.last_name).gsub('[Blocks]',activities).html_safe%>
+    <%end%>
   </body>
 </html>

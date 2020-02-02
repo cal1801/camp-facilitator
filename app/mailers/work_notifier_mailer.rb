@@ -3,6 +3,7 @@ class WorkNotifierMailer < ApplicationMailer
 
   def send_work_email(account,activities,time_frame)
     @account = account
+    @camp = account.user.camp
     @activities = activities
     @time_frame = time_frame
     if @time_frame == "week"

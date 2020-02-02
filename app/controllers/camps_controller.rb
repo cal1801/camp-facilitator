@@ -28,6 +28,8 @@ class CampsController < ApplicationController
   # POST /camps.json
   def create
     @camp = Camp.new(camp_params)
+    @camp.week_out_message = '<h4>[FirstName]</h4><p>Good news, you are on the schedule in a week! &nbsp;Take a look below to confirm the times that we have for you to work. Please give us a call if you have any questions or need to talk about you schedule.</p><p>[Blocks]</p>'
+    @camp.day_out_message = '<h4>[FirstName]</h4><p>Just a quick reminder about your work that is happening tomorrow. As always, please give us a call if there is any issues.</p><p>[Blocks]</p>'
     respond_to do |format|
       if @camp.save
         if User.invite!(:email => params[:user_email], camp_id: @camp.id, role: "camp_admin")
@@ -49,7 +51,7 @@ class CampsController < ApplicationController
   def update
     respond_to do |format|
       if @camp.update(camp_params)
-        format.html { redirect_to @camp, notice: 'Camp was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Camp was successfully updated.' }
         format.json { render :show, status: :ok, location: @camp }
       else
         format.html { render :edit }
@@ -121,7 +123,7 @@ class CampsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def camp_params
-      params.require(:camp).permit(:name, :website, :phone_number)
+      params.require(:camp).permit(:name, :website, :phone_number, :week_out_message, :day_out_message)
     end
 
     def check_master_admin

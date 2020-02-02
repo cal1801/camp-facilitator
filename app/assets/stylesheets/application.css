@@ -45,7 +45,7 @@ body {
   padding: 15px 50px !important;
   top: 15px;
   left: 50%; /* position the left edge of the element at the middle of the parent */
-
+  z-index: 99;
   transform: translate(-50%, 0); /* This is a shorthand of translateX(-50%) and translateY(0) */
 }
 
