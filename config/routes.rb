@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
   resources :accounts, except: [:show, :index]
   devise_for :users, :controllers => { :invitations => 'users/invitations' }
+  patch "users/update"
   get "schedules/index"
   get "schedules/your_work_schedule"
   root "schedules#index"

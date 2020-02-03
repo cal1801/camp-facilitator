@@ -1,0 +1,11 @@
+<%if flash[:alert].blank?%>
+  var btn = $("#<%=@user.account.id%>_staff_listing .change-status")
+  btn.html("Make <%=@user.role == 'user' ? 'Admin' : 'Staff'%>").toggleClass("btn-info").toggleClass("btn-primary")
+  $("#info").html("<%=flash[:notice]%>").show();
+<%else%>
+  $("#alert").html("<%=flash[:alert]%>").show();
+<%end%>
+
+setTimeout(function(){
+  $("#info, #alert").fadeOut('slow');
+}, 4000)
